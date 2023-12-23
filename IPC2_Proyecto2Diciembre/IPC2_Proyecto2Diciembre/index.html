@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+</head>
+<body>
+    <header class="bg_animate">
+        <div class="header_nav">
+            <div class="contenedor">
+                <h1>Tecnologías Chapinas S.A.</h1>
+                <nav>
+                    <a href="{% url 'Inicio' %}">Comenzar</a>
+                </nav>
+            </div>
+        </div>
+        <section class="banner contenedor">
+            <section class="banner_title">
+                <h2>Vive una nueva <br> experiencia!</h2>
+                <!-- <a href="" class="comenzar">Comenzar!</a> -->
+            </section>
+            <div class="banner_img">
+                <img src="{% static 'logo.png' %}" width= 30% height= auto alt="Banner">
+            </div>
+        </section>
+        <div class="burbujas">
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+        </div>
+    </header>
+    {% block body %}
+      
+    {% endblock %}
+    <footer class="pie-pagina">
+        <div class="grupo-2">
+            <small>&copy; 2023 <b>Tecnologías Chapinas S.A.</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+</body>
+</html>
