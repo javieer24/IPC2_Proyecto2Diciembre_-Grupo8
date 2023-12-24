@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facturas>
+    <factura>
+        <maestro>
+            <nit>123456</nit>
+            <nombre>Cliente 1</nombre>
+            <direccion>Dirección del Cliente 1</direccion>
+        </maestro>
+        <detalle>
+            <producto>
+                <nombre>Producto 1</nombre>
+                <cantidad>2</cantidad>
+                <precio>100</precio>
+            </producto>
+            <!-- Agrega más productos aquí -->
+        </detalle>
+    </factura>
+    <!-- Agrega más facturas aquí -->
+</facturas>
