@@ -282,3 +282,74 @@ body{
         transform: translateY(0);
     }
 }
+
+#clientes-section {
+    display: none;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para la tabla */
+.table-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.th {
+  background-color: #4CAF50;
+  color: black; /* Cambiado a negro */
+  font-weight: bold; /* Texto en negrita */
+}
+
+.button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+.button-container {
+    margin-top: 10px; 
+}
