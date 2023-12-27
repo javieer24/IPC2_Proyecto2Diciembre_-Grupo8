@@ -53,15 +53,14 @@ La aplicación de escritorio IPCmusic consiste en un reproductor de música el c
 </ul>
 También puede instalarlo usando pip
 Para matplotlib
+
 ```js
-python3 -m pip install --user matplotlib
-pip install --user matplotlib
+pip install matplotlib
 ```
 Para reportlab
+
 ```js
-python3 -m pip install --user reportlab
-o
-pip install --user reportlab
+pip install reportlab
 ```
 ## 🗂 Recursos
 <ul>
