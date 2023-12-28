@@ -37,7 +37,7 @@ La aplicación de escritorio IPCmusic consiste en un reproductor de música el c
 - [🗂 Recursos](#-recursos)
 - [📟 Instalación](#-instalación)
 - [⚡ Inicio Rápido](#-inicio-rápido)
-- [💻 Ejemplo de Interfaz de Usuario MP3music](#-ejemplo-de-interfaz-deusuario-mp3music)
+- [💻 Ejemplo de Interfaz de Usuario Project2](#-ejemplo-de-interfaz-deusuario-mp3music)
 
 - [📖 Documentación](#-documentación)
 
@@ -51,6 +51,14 @@ La aplicación de escritorio IPCmusic consiste en un reproductor de música el c
     <li>Reportlab</li>
 
 </ul>
+
+## 🗂 Recursos
+<ul>
+  <li><a href="https://www.python.org/downloads/release/python-3115/">Python 3.11.5 o Superior</a></li>
+  <li><a href="https://www.reportlab.com/">Matplotlib</a></li>
+  <li><a href="https://matplotlib.org/">ReportLab</a></li>
+</ul>
+
 También puede instalarlo usando pip
 Para matplotlib
 
@@ -62,12 +70,6 @@ Para reportlab
 ```js
 pip install reportlab
 ```
-## 🗂 Recursos
-<ul>
-  <li><a href="https://www.python.org/downloads/release/python-3115/">Python 3.11.5 o Superior</a></li>
-  <li><a href="https://www.reportlab.com/">Matplotlib</a></li>
-  <li><a href="https://matplotlib.org/">ReportLab</a></li>
-</ul>
 
 ## 📟 Instalación
 Descargue el código o bien clone el repositorio en una carpeta.
@@ -79,15 +81,35 @@ git clone https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8.git
 ```
 
 ## ⚡ Inicio Rápido
-Una vez con la carpeta del proyecto y teniendo los recursos, dirijase a donde está al archivo `main.py` y ejecutelo de la siguiente forma
+Una vez con la carpeta del proyecto y teniendo los recursos, abra la terminal locual le mostrara de la siguiente manera (ejemplo):
 
 ```bash
-python main.py
+C:\Users\Dektop\IPC2_Proyecto2Diciembre_-Grupo8
+```
+entre a `project2` desde la terminal, para poder navergar entre carpetas use lo siguiente
+```bash
+cd .\project2\
+```
+ le debe salir de la siguiente manera, para poder confirmar que entro en la carpeta(ejemplo)
+```bash
+C:\Users\Dektop\IPC2_Proyecto2Diciembre_-Grupo8\project2
+```
+una vez estando en la carpeta `project2` ejecute el siguiente comando en la terminal
+```bash
+py manage.py runserver
+```
+esto le mostrara lo siguiente
+<p align="center">
+    <img src="IMG\server.png">
+</p>
+
+para dirigirse a la pagina web, copie el link que le aparece en la terminal y peguelo en su navegador o simplemente haga ctl+click para seguir el vínculo, el vínculo deber ser el siguiente.
+
+```bash
+http://127.0.0.1:8000/
 ```
 
-Luego se ejecutará la aplicación, abriendo una ventana
-
-## 💻 Ejemplo de Interfaz de Usuario MP3music
+## 💻 Ejemplo de Interfaz de Usuario Project2
 
 <p align="center">
     <img src="IMG\inicio.png">
@@ -96,10 +118,10 @@ Luego se ejecutará la aplicación, abriendo una ventana
 ## 📖 Documentación
 Para comprender de mejor manera el funcionamiento del sistema puede dirigirse a lo siguiente:
     <ul>
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Proyecto1IPC2%20-%20Diciembre.pdf" target="_blank">:point_right:Planteamiento de proyecto</a></li>
-        <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Documentacion.pdf" target="_blank">:point_right:Documentacion Ensayo</a></li>
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20Tecnico" target="_blank">:point_right:Manual Técnico</a></li>
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20de%20Usuario" target="_blank">:point_right:Manual de Usuario</a></li>
+       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Proyecto1IPC2%20-%20Diciembre.pdf" target="_blank">:point_right:Planteamiento de proyecto</a></li>
+        <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Documentacion.pdf" target="_blank">:point_right:Documentacion Ensayo</a></li>
+       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20Tecnico" target="_blank">:point_right:Manual Técnico</a></li>
+       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20de%20Usuario" target="_blank">:point_right:Manual de Usuario</a></li>
        <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Diagramas de Clases UML.pdf" target="_blank">:point_right:Diagrama de Clases UML</a></li>
     </ul>
 
