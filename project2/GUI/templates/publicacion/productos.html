@@ -1,4 +1,4 @@
-<{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,16 +51,17 @@
       <a href="{% url 'Clientes' %}" class="btn btn-primary">Clientes</a>
       <button type="button" class="btn btn-primary" onclick="showProductos()">Productos</button>
       <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
+      <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+          
   
       <div class="mb-3" id="file-upload-section" style="display: none;">
           <label for="formFile" class="form-label">Cargar archivo de entrada</label>
           <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
-      </div>
+          <button onclick="exportar('productos-tabla.xml')">Exportar a XML</button>
+        </div>
       
       <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
           <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-          <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
-          <button onclick="exportar('productos-tabla.xml')">Exportar a XML</button>
       </div>
   
       <div id="productos-section" class="crear-producto" style="display: none; padding: 20px;">
