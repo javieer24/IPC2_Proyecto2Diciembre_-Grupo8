@@ -1,0 +1,367 @@
+<{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icono" href="{% static 'logo.png' %}">
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'plantilla.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  </head>
+</head>
+<body>
+  
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <img src="{% static 'logo3.png' %}" alt="" width="130" height="70">
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="nav justify-content-center">
+              <li class="nav-item">
+                
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'Inicio' %}" style="color:#fff;" >Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#fff;" >
+                  Ayuda
+                </a>
+                <ul class="dropdown-menu">
+
+                  <li><a class="dropdown-item" href="{% url 'Documentacion' %}">Documentación</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'Home' %}">Salir</a></li>   
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+
+    <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
+    <a href="{% url 'Productos' %}" class="btn btn-primary">Productos</a>
+    <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
+
+    <div class="mb-3" id="file-upload-section" style="display: none;">
+        <label for="formFile" class="form-label">Cargar archivo de entrada</label>
+        <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
+    </div>
+    
+    <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
+        <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
+        <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+    </div>
+
+    <div id="clientes-section" style="display: none; padding: 20px;">
+        <h2>Crear Cliente</h2>
+        <form onsubmit="addRow(); return false;">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre"><br>
+            <label for="nit">NIT:</label><br>
+            <input type="text" id="nit" name="nit"><br>
+            <label for="direccion">Dirección:</label><br>
+            <input type="text" id="direccion" name="direccion"><br>
+            <input type="submit" value="Crear Cliente">
+        </form>
+
+        <div class="table-responsive">
+            <table class="table" id="clientes-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>NIT</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="cliente-1-update-section" class="update-section" style="display: none;">
+        <h2>Actualizar Cliente</h2>
+        <form onsubmit="updateRow('cliente-1'); return false;">
+            <label for="update-nombre">Nombre:</label><br>
+            <input type="text" id="update-nombre" name="nombre"><br>
+            <label for="update-nit">NIT:</label><br>
+            <input type="text" id="update-nit" name="nit"><br>
+            <label for="update-direccion">Dirección:</label><br>
+            <input type="text" id="update-direccion" name="direccion"><br>
+            <input type="submit" value="Actualizar">
+        </form>
+    </div>
+
+    <script>
+          
+      function addRow() {
+        // Obtén los valores del formulario de creación
+        var nuevoNombre = document.getElementById('nombre').value;
+        var nuevoNit = document.getElementById('nit').value;
+        var nuevaDireccion = document.getElementById('direccion').value;
+
+        // Validación de entrada
+        if (!nuevoNombre || !nuevoNit || !nuevaDireccion) {
+            alert('Todos los campos son obligatorios');
+            return;
+        }
+
+        // Crea una nueva fila y agrega celdas con los valores
+        var table = document.getElementById('clientes-table');
+        var newRow = table.insertRow(table.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        // Asigna un identificador único a la nueva fila
+        newRow.id = 'cliente-' + (table.rows.length - 1);
+
+        // Agrega los valores a las celdas
+        cell1.innerText = nuevoNombre;
+        cell2.innerText = nuevoNit;
+        cell3.innerText = nuevaDireccion;
+
+        // Agrega botones de editar y eliminar a la nueva fila
+        cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
+            '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+
+        // Asigna las funciones de JavaScript a los nuevos botones
+        var editButton = cell4.querySelector('button:nth-child(1)');
+        var deleteButton = cell4.querySelector('button:nth-child(2)');
+
+        editButton.onclick = function () {
+            showUpdateForm(newRow.id);
+        };
+
+        deleteButton.onclick = function () {
+            deleteRow(newRow.id);
+        };
+
+        // Mensaje de confirmación
+        alert('Cliente agregado exitosamente');
+
+        // Limpia el formulario
+        document.getElementById('nombre').value = '';
+        document.getElementById('nit').value = '';
+        document.getElementById('direccion').value = '';
+      }
+
+
+
+    </script>
+
+        
+    </div>
+
+    <script>
+      function showUpdateForm(clienteId) {
+          // Obtén la fila por su identificador único
+          var row = document.getElementById(clienteId);
+  
+          // Obtén los datos de la fila
+          var nombre = row.cells[0].innerText;
+          var nit = row.cells[1].innerText;
+          var direccion = row.cells[2].innerText;
+  
+          // Llena los campos del formulario de actualización con los datos actuales
+          document.getElementById('update-nombre').value = nombre;
+          document.getElementById('update-nit').value = nit;
+          document.getElementById('update-direccion').value = direccion;
+  
+          // Muestra la sección de actualización
+          var updateSection = document.getElementById(clienteId + '-update-section');
+          if (updateSection) {
+              updateSection.style.display = 'block';
+          }
+      }
+    </script>
+
+    <script>
+      function updateRow(clienteId) {
+          // Obtén los nuevos valores del formulario de actualización
+          var nuevoNombre = document.getElementById('update-nombre').value;
+          var nuevoNit = document.getElementById('update-nit').value;
+          var nuevaDireccion = document.getElementById('update-direccion').value;
+
+        // Logging for debugging
+          console.log('Updating row:', clienteId);
+          console.log('New values:', nuevoNombre, nuevoNit, nuevaDireccion);
+  
+          // Obtén la fila por su identificador único
+          var row = document.getElementById(clienteId);
+  
+          // Actualiza los datos en la fila
+          row.cells[0].innerText = nuevoNombre;
+          row.cells[1].innerText = nuevoNit;
+          row.cells[2].innerText = nuevaDireccion;
+  
+          // Oculta la sección de actualización
+          var updateSection = document.getElementById(clienteId + '-update-section');
+          if (updateSection) {
+              updateSection.style.display = 'none';
+          }
+      }
+  </script>
+
+  <script>
+        function consultarDatos() {
+            var fileInput = document.getElementById('formFile');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var xmlString = e.target.result;
+                    procesarXML(xmlString);
+                };
+
+                reader.readAsText(file);
+            } else {
+                alert('Por favor, selecciona un archivo XML primero.');
+            }
+        }
+        function procesarXML(xmlString) {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+
+            // Limpia la tabla antes de agregar nuevas filas
+            clearTable();
+
+            // Obtén la lista de nodos 'cliente'
+            var clientes = xmlDoc.getElementsByTagName('cliente');
+
+            // Recorre la lista de clientes y agrega filas a la tabla
+            for (var i = 0; i < clientes.length; i++) {
+                var cliente = clientes[i];
+                var nit = cliente.getElementsByTagName('nit')[0].textContent;
+                var nombre = cliente.getElementsByTagName('nombre')[0].textContent;
+                var direccion = cliente.getElementsByTagName('direccion')[0].textContent;
+
+                // Añade una fila a la tabla con los datos obtenidos
+                addRowToTable(nombre, nit, direccion, i);
+            }
+
+            // Mensaje de confirmación
+            alert('Datos del XML consultados exitosamente');
+        }
+
+        // Función para limpiar la tabla
+        function clearTable() {
+            var table = document.getElementById('clientes-table');
+            var tbody = table.getElementsByTagName('tbody')[0];
+            tbody.innerHTML = ''; // Elimina el contenido del cuerpo de la tabla
+        }
+
+        // Función para agregar una fila a la tabla con un identificador único basado en el índice
+        function addRowToTable(nombre, nit, direccion, index) {
+            // Añade una fila a la tabla con los datos obtenidos
+            var table = document.getElementById('clientes-table');
+            var tbody = table.getElementsByTagName('tbody')[0];
+            var newRow = tbody.insertRow(tbody.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            // Asigna un identificador único a la nueva fila basado en el índice
+            newRow.id = 'cliente-' + index;
+
+            // Agrega los valores a las celdas
+            cell1.innerText = nombre;
+            cell2.innerText = nit;
+            cell3.innerText = direccion;
+
+            // Agrega botones de editar y eliminar a la nueva fila
+            cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
+                '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+        }
+
+    </script>
+  
+  <script>
+      function deleteRow(clienteId) {
+          // Encuentra la fila por su identificador único y elimínala
+          var row = document.getElementById(clienteId);
+          if (row) {
+              console.log('Eliminando fila:', clienteId);
+              row.parentNode.removeChild(row);
+          } else {
+              console.error('No se encontró la fila con el identificador:', clienteId);
+          }
+      }
+  </script>
+  
+  <script>
+        function showClientes() {
+            var clientesSection = document.getElementById("clientes-section");
+            var fileUploadSection = document.getElementById("file-upload-section");
+            var additionalButtonsSection = document.getElementById("additional-buttons-section");
+
+            if (clientesSection.style.display === "none" || clientesSection.style.display === "") {
+                clientesSection.style.display = "block";
+                fileUploadSection.style.display = "block";
+                additionalButtonsSection.style.display = "block";
+            } else {
+                clientesSection.style.display = "none";
+                fileUploadSection.style.display = "none";
+                additionalButtonsSection.style.display = "none";
+            }
+        }
+  </script> 
+  
+
+  <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+          crossorigin="anonymous"
+        ></script>
+      
+
+
+    {% block body %}
+   
+    {% endblock %}
+    
+    <footer class="pie-pagina">
+      <div class="grupo-1">
+          <div class="box">
+              <figure>
+                  <a href="{% url 'Home' %}">
+                      <img src="{% static 'logo.png' %}" alt="Logo Grupo8">
+                  </a>
+              </figure>
+          </div>
+          <div class="box">
+              <h2>SOBRE NOSOTROS</h2>
+              <p>Somos una red social capaz de desarrollar y analizar el contenido de nuestros usuarios. </p>
+              <p>Establecemos perfiles que favorezcan a conocer a todos nuestros usuarios y brindar un servicio personalizado.</p>
+          </div>
+          <div class="box">
+              <h2>SIGUENOS</h2>
+              <div class="red-social">
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-instagram"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-youtube"></a>
+              </div>
+          </div>
+      </div>
+      <div class="grupo-2">
+          <small>&copy; 2023 <b>Proyecto 2-Grupo 8 S.A.</b> - Todos los Derechos Reservados.</small>
+      </div>
+    </footer>
+    
+</body>
+</html>
