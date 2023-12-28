@@ -29,7 +29,7 @@
                 
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'Home' %}" style="color:#fff;" >Inicio</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'Inicio' %}" style="color:#fff;" >Inicio</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#fff;" >
@@ -48,8 +48,8 @@
       </nav>
       <br>
 
-      <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
-    <button type="button" class="btn btn-primary">Productos</button>
+    <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
+    <button type="button" class="btn btn-primary" href="{% url 'Publicacion' %}">Productos</button>
     <button type="button" class="btn btn-primary">Factura</button>
 
     <div class="mb-3" id="file-upload-section" style="display: none;">
@@ -59,7 +59,7 @@
     
     <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-        <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+        <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
     </div>
 
     <div id="clientes-section" style="display: none; padding: 20px;">

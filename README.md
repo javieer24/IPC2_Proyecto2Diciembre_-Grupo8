@@ -47,8 +47,8 @@ La aplicación de escritorio IPCmusic consiste en un reproductor de música el c
 ## ⚒ Requerimientos
 <ul>
     <li>Python 3.11.5 o Superior</li>
-    <li>matplotlib</li>
-    <li>reportlab</li>
+    <li>Matplotlib</li>
+    <li>Reportlab</li>
 
 </ul>
 También puede instalarlo usando pip
@@ -65,7 +65,7 @@ pip install reportlab
 ## 🗂 Recursos
 <ul>
   <li><a href="https://www.python.org/downloads/release/python-3115/">Python 3.11.5 o Superior</a></li>
-  <li><a href="https://www.reportlab.com/">matplotlib</a></li>
+  <li><a href="https://www.reportlab.com/">Matplotlib</a></li>
   <li><a href="https://matplotlib.org/">ReportLab</a></li>
 </ul>
 
