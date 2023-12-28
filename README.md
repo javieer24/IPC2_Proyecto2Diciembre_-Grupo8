@@ -1,7 +1,9 @@
 # IPC2_Proyecto2Diciembre_-Grupo8
 <h1 align="center">Proyecto 2</h1>
 <h2 align="center">Grupo #8</h2>
-
+<p align="center">
+    <img src="IMG\inicio.png">
+</p>
 <div align="center"> 🏛 Universidad San Carlos de Guatemala</div>
 <div align="center">
 📕 Introducción a la Programación y Computación 2
