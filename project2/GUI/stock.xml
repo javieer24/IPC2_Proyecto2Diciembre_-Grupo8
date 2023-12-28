@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stock>
+    <producto>
+        <id>1</id>
+        <nombre>Producto 1</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+    <producto>
+        <id>2</id>
+        <nombre>Producto 2</nombre>
+        <descripcion>Descripción del Producto 2</descripcion>
+        <precio>200</precio>
+        <stock>30</stock>
+    </producto>
+    <producto>
+        <id>3</id>
+        <nombre>Producto 3</nombre>
+        <descripcion>Descripción del Producto 3</descripcion>
+        <precio>150</precio>
+        <stock>20</stock>
+    </producto>
+    <producto>
+        <id>4</id>
+        <nombre>Producto 4</nombre>
+        <descripcion>Descripción del Producto 4</descripcion>
+        <precio>300</precio>
+        <stock>10</stock>
+    </producto>
+    <producto>
+        <id>5</id>
+        <nombre>Producto 5</nombre>
+        <descripcion>Descripción del Producto 5</descripcion>
+        <precio>250</precio>
+        <stock>5</stock>
+    </producto>
+        <producto>
+        <id>6</id>
+        <nombre>Producto 6</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+        <producto>
+        <id>7</id>
+        <nombre>Producto 7</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+        <producto>
+        <id>8</id>
+        <nombre>Producto 8</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+        <producto>
+        <id>9</id>
+        <nombre>Producto 9</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+        <producto>
+        <id>10</id>
+        <nombre>Producto 10</nombre>
+        <descripcion>Descripción del Producto 1</descripcion>
+        <precio>100</precio>
+        <stock>50</stock>
+    </producto>
+</stock>
