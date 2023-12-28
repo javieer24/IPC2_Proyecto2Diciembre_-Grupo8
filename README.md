@@ -120,17 +120,9 @@ http://127.0.0.1:8000/
 ## 📖 Documentación
 Para comprender de mejor manera el funcionamiento del sistema puede dirigirse a lo siguiente:
     <ul>
-<<<<<<< HEAD
        <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/main/Documentacion/Proyecto%202%20-%20IPC2.pdf">:point_right:Planteamiento de proyecto</a></li>
         <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/pruebasDB/Documentacion/Documentacion.pdf" target="_blank">:point_right:Documentacion Ensayo</a></li>
        <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentacion/Manual%20Tecnico">:point_right:Manual Técnico</a></li>
        <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentacion/Manual%20Usuario">:point_right:Manual de Usuario</a></li>
-=======
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Proyecto1IPC2%20-%20Diciembre.pdf" target="_blank">:point_right:Planteamiento de proyecto</a></li>
-        <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Documentacion.pdf" target="_blank">:point_right:Documentacion Ensayo</a></li>
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20Tecnico" target="_blank">:point_right:Manual Técnico</a></li>
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto2Diciembre_-Grupo8/tree/main/Documentaci%C3%B3n/Manual%20de%20Usuario" target="_blank">:point_right:Manual de Usuario</a></li>
->>>>>>> origin/pruebasDB
-       <li><a href="https://github.com/javieer24/IPC2_Proyecto1Diciembre_-Grupo8/blob/main/Documentaci%C3%B3n/Diagramas de Clases UML.pdf" target="_blank">:point_right:Diagrama de Clases UML</a></li>
     </ul>
 
