@@ -48,10 +48,9 @@
       </nav>
       <br>
 
-    <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
+    <a href="{% url 'Clientes' %}" class="btn btn-primary">Clientes</a>
     <a href="{% url 'Productos' %}" class="btn btn-primary">Productos</a>
-    <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
-    <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+    <button type="button" class="btn btn-primary" onclick="showFacturas()">Factura</button>
 
     <div class="mb-3" id="file-upload-section" style="display: none;">
         <label for="formFile" class="form-label">Cargar archivo de entrada</label>
@@ -60,103 +59,122 @@
     
     <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
+        <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
     </div>
 
-    <div id="clientes-section" style="display: none; padding: 20px;">
-        <h2>Crear Cliente</h2>
-        <form onsubmit="addRow(); return false;">
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre"><br>
-            <label for="nit">NIT:</label><br>
-            <input type="text" id="nit" name="nit"><br>
-            <label for="direccion">Dirección:</label><br>
-            <input type="text" id="direccion" name="direccion"><br>
-            <input type="submit" value="Crear Cliente">
-        </form>
-
-        <div class="table-responsive">
-            <table class="table" id="clientes-table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>NIT</th>
-                        <th>Dirección</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="clientes-tbody"></tbody>
-            </table>
+    <div id="maestro-factura-section" style="display: none;">
+        <h2>Maestro de Factura</h2>
+        <div>
+            <label for="nit">NIT:</label>
+            <input type="text" id="nit" readonly>
+        </div>
+        <div>
+            <label for="nombre-cliente">Nombre Cliente:</label>
+            <input type="text" id="nombre-cliente" readonly>
+        </div>
+        <div>
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" readonly>
         </div>
     </div>
-
-    <div id="cliente-1-update-section" class="update-section" style="display: none;">
-        <h2>Actualizar Cliente</h2>
-        <form onsubmit="updateRow('cliente-1'); return false;">
-            <label for="update-nombre">Nombre:</label><br>
-            <input type="text" id="update-nombre" name="nombre"><br>
-            <label for="update-nit">NIT:</label><br>
-            <input type="text" id="update-nit" name="nit"><br>
-            <label for="update-direccion">Dirección:</label><br>
-            <input type="text" id="update-direccion" name="direccion"><br>
-            <input type="submit" value="Actualizar">
-        </form>
+    
+    <div id="detalle-factura-section" style="display: none;">
+        <h2>Detalle de Factura</h2>
+        <table class="table" id="detalle-factura-table">
+            <thead>
+                <tr>
+                    <th>Nombre del Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                </tr>
+            </thead>
+            <tbody id="detalle-factura-tbody"></tbody>
+        </table>
     </div>
 
     <script>
           
-      function addRow() {
-        // Obtén los valores del formulario de creación
-        var nuevoNombre = document.getElementById('nombre').value;
-        var nuevoNit = document.getElementById('nit').value;
-        var nuevaDireccion = document.getElementById('direccion').value;
+      
+    function addFacturaRow() {
+        var nitCliente = document.getElementById('nit-cliente').value;
+        var nombreCliente = document.getElementById('nombre-cliente').value;
+        var direccionCliente = document.getElementById('direccion-cliente').value;
 
-        // Validación de entrada
-        if (!nuevoNombre || !nuevoNit || !nuevaDireccion) {
-            alert('Todos los campos son obligatorios');
+        if (!nitCliente || !nombreCliente || !direccionCliente) {
+            alert('Todos los campos del maestro de factura son obligatorios');
             return;
         }
 
-        // Crea una nueva fila y agrega celdas con los valores
-        var table = document.getElementById('clientes-table');
-        var newRow = table.insertRow(table.rows.length);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
+        var facturaTable = document.getElementById('factura-table');
+        var facturaNewRow = facturaTable.insertRow(facturaTable.rows.length);
+        var facturaCell1 = facturaNewRow.insertCell(0);
+        var facturaCell2 = facturaNewRow.insertCell(1);
+        var facturaCell3 = facturaNewRow.insertCell(2);
+        var facturaCell4 = facturaNewRow.insertCell(3);
 
-        // Asigna un identificador único a la nueva fila
-        newRow.id = 'cliente-' + (table.rows.length - 1);
+        facturaNewRow.id = 'factura-' + (facturaTable.rows.length - 1);
 
-        // Agrega los valores a las celdas
-        cell1.innerText = nuevoNombre;
-        cell2.innerText = nuevoNit;
-        cell3.innerText = nuevaDireccion;
+        facturaCell1.innerText = nitCliente;
+        facturaCell2.innerText = nombreCliente;
+        facturaCell3.innerText = direccionCliente;
 
-        // Agrega botones de editar y eliminar a la nueva fila
-        cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
-            '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+        facturaCell4.innerHTML = '<table id="detalle-factura-' + (facturaTable.rows.length - 1) + '-table">' +
+            '<thead><tr><th>Nombre Producto</th><th>Cantidad</th><th>Precio</th><th>Acciones</th></tr></thead>' +
+            '<tbody></tbody></table>' +
+            '<form onsubmit="addDetalleFacturaRow(\'' + facturaNewRow.id + '\'); return false;">' +
+            '<label for="nombre-producto">Nombre Producto:</label><br>' +
+            '<input type="text" id="nombre-producto" name="nombre-producto" required><br>' +
+            '<label for="cantidad">Cantidad:</label><br>' +
+            '<input type="number" id="cantidad" name="cantidad" required><br>' +
+            '<label for="precio">Precio:</label><br>' +
+            '<input type="number" id="precio" name="precio" required><br>' +
+            '<input type="submit" value="Agregar Detalle">' +
+            '</form>';
 
-        // Asigna las funciones de JavaScript a los nuevos botones
-        var editButton = cell4.querySelector('button:nth-child(1)');
-        var deleteButton = cell4.querySelector('button:nth-child(2)');
+        alert('Factura agregada exitosamente');
 
-        editButton.onclick = function () {
-            showUpdateForm(newRow.id);
-        };
+        document.getElementById('nit-cliente').value = '';
+        document.getElementById('nombre-cliente').value = '';
+        document.getElementById('direccion-cliente').value = '';
+    }
 
-        deleteButton.onclick = function () {
-            deleteRow(newRow.id);
-        };
+        function addDetalleFacturaRow(facturaId) {
+            var nombreProducto = document.getElementById('nombre-producto').value;
+            var cantidad = document.getElementById('cantidad').value;
+            var precio = document.getElementById('precio').value;
 
-        // Mensaje de confirmación
-        alert('Cliente agregado exitosamente');
+            if (!nombreProducto || !cantidad || !precio) {
+                alert('Todos los campos del detalle de factura son obligatorios');
+                return;
+            }
 
-        // Limpia el formulario
-        document.getElementById('nombre').value = '';
-        document.getElementById('nit').value = '';
-        document.getElementById('direccion').value = '';
-      }
+            var detalleTableId = 'detalle-' + facturaId;
+            var detalleTable = document.getElementById(detalleTableId + '-table');
 
+            var detalleNewRow = detalleTable.insertRow(detalleTable.rows.length);
+            var detalleCell1 = detalleNewRow.insertCell(0);
+            var detalleCell2 = detalleNewRow.insertCell(1);
+            var detalleCell3 = detalleNewRow.insertCell(2);
+            var detalleCell4 = detalleNewRow.insertCell(3);
+
+            detalleNewRow.id = detalleTableId + '-' + (detalleTable.rows.length - 1);
+
+            detalleCell1.innerText = nombreProducto;
+            detalleCell2.innerText = cantidad;
+            detalleCell3.innerText = precio;
+
+            detalleCell4.innerHTML = '<button onclick="deleteDetalleRow(\'' + detalleNewRow.id + '\')">Eliminar</button>';
+        }
+
+        function deleteDetalleRow(detalleId) {
+            var detalleRow = document.getElementById(detalleId);
+            if (detalleRow) {
+                console.log('Eliminando fila del detalle:', detalleId);
+                detalleRow.parentNode.removeChild(detalleRow);
+            } else {
+                console.error('No se encontró la fila del detalle con el identificador:', detalleId);
+            }
+        }
 
 
     </script>
@@ -165,161 +183,227 @@
     </div>
 
     <script>
-      function showUpdateForm(clienteId) {
-          // Obtén la fila por su identificador único
-          var row = document.getElementById(clienteId);
-  
-          // Obtén los datos de la fila
-          var nombre = row.cells[0].innerText;
-          var nit = row.cells[1].innerText;
-          var direccion = row.cells[2].innerText;
-  
-          // Llena los campos del formulario de actualización con los datos actuales
-          document.getElementById('update-nombre').value = nombre;
-          document.getElementById('update-nit').value = nit;
-          document.getElementById('update-direccion').value = direccion;
-  
-          // Muestra la sección de actualización
-          var updateSection = document.getElementById(clienteId + '-update-section');
-          if (updateSection) {
-              updateSection.style.display = 'block';
-          }
-      }
+        function showUpdateForm(facturaId) {
+            var facturaRow = document.getElementById(facturaId);
+    
+            var nitCliente = facturaRow.cells[0].innerText;
+            var nombreCliente = facturaRow.cells[1].innerText;
+            var direccionCliente = facturaRow.cells[2].innerText;
+    
+            document.getElementById('update-nit-cliente').value = nitCliente;
+            document.getElementById('update-nombre-cliente').value = nombreCliente;
+            document.getElementById('update-direccion-cliente').value = direccionCliente;
+    
+            var detalleRow = facturaRow.getElementsByTagName('tr')[1]; 
+            var nombreProducto = detalleRow.cells[0].innerText;
+            var cantidadProducto = detalleRow.cells[1].innerText;
+            var precioProducto = detalleRow.cells[2].innerText;
+    
+            document.getElementById('update-nombre-producto').value = nombreProducto;
+            document.getElementById('update-cantidad-producto').value = cantidadProducto;
+            document.getElementById('update-precio-producto').value = precioProducto;
+    
+            var updateSection = document.getElementById(facturaId + '-update-section');
+            if (updateSection) {
+                updateSection.style.display = 'block';
+            }
+        }
     </script>
 
     <script>
-      function updateRow(clienteId) {
-          // Obtén los nuevos valores del formulario de actualización
-          var nuevoNombre = document.getElementById('update-nombre').value;
-          var nuevoNit = document.getElementById('update-nit').value;
-          var nuevaDireccion = document.getElementById('update-direccion').value;
+        function updateFacturaRow(facturaId) {
+            var nuevoNitCliente = document.getElementById('update-nit-cliente').value;
+            var nuevoNombreCliente = document.getElementById('update-nombre-cliente').value;
+            var nuevaDireccionCliente = document.getElementById('update-direccion-cliente').value;
+    
+            console.log('Updating factura row:', facturaId);
+            console.log('New values (maestro):', nuevoNitCliente, nuevoNombreCliente, nuevaDireccionCliente);
+    
+            var facturaRow = document.getElementById(facturaId);
+    
+            facturaRow.cells[0].innerText = nuevoNitCliente;
+            facturaRow.cells[1].innerText = nuevoNombreCliente;
+            facturaRow.cells[2].innerText = nuevaDireccionCliente;
+    
+            var detalleRow = facturaRow.getElementsByTagName('tr')[1]; 
+    
+            var nuevoNombreProducto = document.getElementById('update-nombre-producto').value;
+            var nuevoCantidadProducto = document.getElementById('update-cantidad-producto').value;
+            var nuevoPrecioProducto = document.getElementById('update-precio-producto').value;
+    
+            console.log('New values (detalle):', nuevoNombreProducto, nuevoCantidadProducto, nuevoPrecioProducto);
+    
+            detalleRow.cells[0].innerText = nuevoNombreProducto;
+            detalleRow.cells[1].innerText = nuevoCantidadProducto;
+            detalleRow.cells[2].innerText = nuevoPrecioProducto;
+    
+            var updateSection = document.getElementById(facturaId + '-update-section');
+            if (updateSection) {
+                updateSection.style.display = 'none';
+            }
+        }
+    </script>
 
-        // Logging for debugging
-          console.log('Updating row:', clienteId);
-          console.log('New values:', nuevoNombre, nuevoNit, nuevaDireccion);
-  
-          // Obtén la fila por su identificador único
-          var row = document.getElementById(clienteId);
-  
-          // Actualiza los datos en la fila
-          row.cells[0].innerText = nuevoNombre;
-          row.cells[1].innerText = nuevoNit;
-          row.cells[2].innerText = nuevaDireccion;
-  
-          // Oculta la sección de actualización
-          var updateSection = document.getElementById(clienteId + '-update-section');
-          if (updateSection) {
-              updateSection.style.display = 'none';
-          }
-      }
-  </script>
-
-  <script>
+    <script>
         function consultarDatos() {
             var fileInput = document.getElementById('formFile');
             var file = fileInput.files[0];
-
+    
             if (file) {
                 var reader = new FileReader();
-
+    
                 reader.onload = function (e) {
                     var xmlString = e.target.result;
                     procesarXML(xmlString);
                 };
-
+    
                 reader.readAsText(file);
             } else {
                 alert('Por favor, selecciona un archivo XML primero.');
             }
         }
+    
         function procesarXML(xmlString) {
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-
-            // Limpia la tabla antes de agregar nuevas filas
-            clearTable();
-
-            // Obtén la lista de nodos 'cliente'
-            var clientes = xmlDoc.getElementsByTagName('cliente');
-
-            // Recorre la lista de clientes y agrega filas a la tabla
-            for (var i = 0; i < clientes.length; i++) {
-                var cliente = clientes[i];
-                var nit = cliente.getElementsByTagName('nit')[0].textContent;
-                var nombre = cliente.getElementsByTagName('nombre')[0].textContent;
-                var direccion = cliente.getElementsByTagName('direccion')[0].textContent;
-
-                // Añade una fila a la tabla con los datos obtenidos
-                addRowToTable(nombre, nit, direccion, i);
+    
+           clearTable();
+    
+            var facturas = xmlDoc.getElementsByTagName('factura');
+    
+            for (var i = 0; i < facturas.length; i++) {
+                var factura = facturas[i];
+                var nitCliente = factura.getElementsByTagName('nitCliente')[0].textContent;
+                var nombreCliente = factura.getElementsByTagName('nombreCliente')[0].textContent;
+                var direccionCliente = factura.getElementsByTagName('direccionCliente')[0].textContent;
+    
+                addMaestroRowToTable(nitCliente, nombreCliente, direccionCliente, i);
+    
+                var detalles = factura.getElementsByTagName('detalle');
+    
+                for (var j = 0; j < detalles.length; j++) {
+                    var detalle = detalles[j];
+                    var nombreProducto = detalle.getElementsByTagName('nombreProducto')[0].textContent;
+                    var cantidadProducto = detalle.getElementsByTagName('cantidadProducto')[0].textContent;
+                    var precioProducto = detalle.getElementsByTagName('precioProducto')[0].textContent;
+    
+                    addDetalleRowToTable(nombreProducto, cantidadProducto, precioProducto, i, j);
+                }
             }
-
-            // Mensaje de confirmación
-            alert('Datos del XML consultados exitosamente');
+    
+            alert('Datos del XML de factura consultados exitosamente');
         }
-
-        // Función para limpiar la tabla
+    
         function clearTable() {
-            var table = document.getElementById('clientes-table');
+            var table = document.getElementById('facturas-table');
             var tbody = table.getElementsByTagName('tbody')[0];
-            tbody.innerHTML = ''; // Elimina el contenido del cuerpo de la tabla
+            tbody.innerHTML = ''; 
         }
-
-        // Función para agregar una fila a la tabla con un identificador único basado en el índice
-        function addRowToTable(nombre, nit, direccion, index) {
-            // Añade una fila a la tabla con los datos obtenidos
-            var table = document.getElementById('clientes-table');
+    
+        function addMaestroRowToTable(nitCliente, nombreCliente, direccionCliente, index) {
+            var table = document.getElementById('facturas-table');
             var tbody = table.getElementsByTagName('tbody')[0];
             var newRow = tbody.insertRow(tbody.rows.length);
             var cell1 = newRow.insertCell(0);
             var cell2 = newRow.insertCell(1);
             var cell3 = newRow.insertCell(2);
             var cell4 = newRow.insertCell(3);
-
-            // Asigna un identificador único a la nueva fila basado en el índice
-            newRow.id = 'cliente-' + index;
-
-            // Agrega los valores a las celdas
-            cell1.innerText = nombre;
-            cell2.innerText = nit;
-            cell3.innerText = direccion;
-
-            // Agrega botones de editar y eliminar a la nueva fila
-            cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
-                '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+    
+            newRow.id = 'factura-maestro-' + index;
+    
+            cell1.innerText = nitCliente;
+            cell2.innerText = nombreCliente;
+            cell3.innerText = direccionCliente;
+    
+            cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar Maestro</button>' +
+                '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar Maestro</button>';
         }
-
+    
+        function addDetalleRowToTable(nombreProducto, cantidadProducto, precioProducto, maestroIndex, detalleIndex) {
+            var maestroRowId = 'factura-maestro-' + maestroIndex;
+            var maestroRow = document.getElementById(maestroRowId);
+    
+            var detalleTable = maestroRow.querySelector('.detalle-table');
+            var detalleTbody = detalleTable.getElementsByTagName('tbody')[0];
+            var newDetalleRow = detalleTbody.insertRow(detalleTbody.rows.length);
+            var cell1 = newDetalleRow.insertCell(0);
+            var cell2 = newDetalleRow.insertCell(1);
+            var cell3 = newDetalleRow.insertCell(2);
+            var cell4 = newDetalleRow.insertCell(3);
+    
+            newDetalleRow.id = 'factura-detalle-' + maestroIndex + '-' + detalleIndex;
+    
+            cell1.innerText = nombreProducto;
+            cell2.innerText = cantidadProducto;
+            cell3.innerText = precioProducto;
+    
+            cell4.innerHTML = '<button onclick="showUpdateDetalleForm(\'' + newDetalleRow.id + '\')">Editar Detalle</button>' +
+                '<button onclick="deleteRow(\'' + newDetalleRow.id + '\')">Eliminar Detalle</button>';
+        }
+    
+        function showUpdateForm(facturaMaestroId) {
+            var facturaMaestroRow = document.getElementById(facturaMaestroId);
+    
+            var nitCliente = facturaMaestroRow.cells[0].innerText;
+            var nombreCliente = facturaMaestroRow.cells[1].innerText;
+            var direccionCliente = facturaMaestroRow.cells[2].innerText;
+    
+            document.getElementById('update-nit-cliente').value = nitCliente;
+            document.getElementById('update-nombre-cliente').value = nombreCliente;
+            document.getElementById('update-direccion-cliente').value = direccionCliente;
+    
+            var updateSection = document.getElementById(facturaMaestroId + '-update-section');
+            if (updateSection) {
+                updateSection.style.display = 'block';
+            }
+        }
+    
+        function showUpdateDetalleForm(facturaDetalleId) {
+            var facturaDetalleRow = document.getElementById(facturaDetalleId);
+    
+            var nombreProducto = facturaDetalleRow.cells[0].innerText;
+            var cantidadProducto = facturaDetalleRow.cells[1].innerText;
+            var precioProducto = facturaDetalleRow.cells[2].innerText;
+    
+            document.getElementById('update-nombre-producto').value = nombreProducto;
+            document.getElementById('update-cantidad-producto').value = cantidadProducto;
+            document.getElementById('update-precio-producto').value = precioProducto;
+            var updateDetalleSection = document.getElementById(facturaDetalleId + '-update-section');
+            if (updateDetalleSection) {
+                updateDetalleSection.style.display = 'block';
+            }
+        }
     </script>
   
-  <script>
-      function deleteRow(clienteId) {
-          // Encuentra la fila por su identificador único y elimínala
-          var row = document.getElementById(clienteId);
-          if (row) {
-              console.log('Eliminando fila:', clienteId);
-              row.parentNode.removeChild(row);
-          } else {
-              console.error('No se encontró la fila con el identificador:', clienteId);
-          }
-      }
-  </script>
-  
-  <script>
-        function showClientes() {
-            var clientesSection = document.getElementById("clientes-section");
+    <script>
+        function deleteRow(facturaMaestroId) {
+            var facturaMaestroRow = document.getElementById(facturaMaestroId);
+            if (facturaMaestroRow) {
+                console.log('Eliminando fila del maestro:', facturaMaestroId);
+                facturaMaestroRow.parentNode.removeChild(facturaMaestroRow);
+            } else {
+                console.error('No se encontró la fila del maestro con el identificador:', facturaMaestroId);
+            }
+        }
+    </script>
+    
+    <script>
+        function showFacturas() {
+            var facturasSection = document.getElementById("facturas-section");
             var fileUploadSection = document.getElementById("file-upload-section");
             var additionalButtonsSection = document.getElementById("additional-buttons-section");
-
-            if (clientesSection.style.display === "none" || clientesSection.style.display === "") {
-                clientesSection.style.display = "block";
+    
+            if (facturasSection.style.display === "none" || facturasSection.style.display === "") {
+                facturasSection.style.display = "block";
                 fileUploadSection.style.display = "block";
                 additionalButtonsSection.style.display = "block";
             } else {
-                clientesSection.style.display = "none";
+                facturasSection.style.display = "none";
                 fileUploadSection.style.display = "none";
                 additionalButtonsSection.style.display = "none";
             }
         }
-  </script> 
+    </script>
   
 
   <script

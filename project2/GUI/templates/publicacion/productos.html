@@ -48,278 +48,319 @@
       </nav>
       <br>
 
-    <a href="{% url 'Clientes' %}" class="btn btn-primary">Clientes</a>
-    <button type="button" class="btn btn-primary">Productos</button>
-    <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
-    <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
-
-    <div class="mb-3" id="file-upload-section" style="display: none;">
-        <label for="formFile" class="form-label">Cargar archivo de entrada</label>
-        <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
-    </div>
-    
-    <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
-        <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-    </div>
-
-    <div id="clientes-section" style="display: none; padding: 20px;">
-        <h2>Crear Cliente</h2>
-        <form onsubmit="addRow(); return false;">
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre"><br>
-            <label for="nit">NIT:</label><br>
-            <input type="text" id="nit" name="nit"><br>
-            <label for="direccion">Dirección:</label><br>
-            <input type="text" id="direccion" name="direccion"><br>
-            <input type="submit" value="Crear Cliente">
-        </form>
-
-        <div class="table-responsive">
-            <table class="table" id="clientes-table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>NIT</th>
-                        <th>Dirección</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="clientes-tbody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <div id="cliente-1-update-section" class="update-section" style="display: none;">
-        <h2>Actualizar Cliente</h2>
-        <form onsubmit="updateRow('cliente-1'); return false;">
-            <label for="update-nombre">Nombre:</label><br>
-            <input type="text" id="update-nombre" name="nombre"><br>
-            <label for="update-nit">NIT:</label><br>
-            <input type="text" id="update-nit" name="nit"><br>
-            <label for="update-direccion">Dirección:</label><br>
-            <input type="text" id="update-direccion" name="direccion"><br>
-            <input type="submit" value="Actualizar">
-        </form>
-    </div>
-
-    <script>
+      <a href="{% url 'Clientes' %}" class="btn btn-primary">Clientes</a>
+      <button type="button" class="btn btn-primary" onclick="showProductos()">Productos</button>
+      <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
+  
+      <div class="mb-3" id="file-upload-section" style="display: none;">
+          <label for="formFile" class="form-label">Cargar archivo de entrada</label>
+          <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
+      </div>
+      
+      <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
+          <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
+          <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+          <button onclick="exportar('productos-tabla.xml')">Exportar a XML</button>
+      </div>
+  
+      <div id="productos-section" class="crear-producto" style="display: none; padding: 20px;">
+          <h2>Crear Producto</h2>
+          <form onsubmit="addRow(); return false;">
+              <label for="nombre">Nombre:</label><br>
+              <input type="text" id="nombre" name="nombre" required><br>
+              <label for="descripcion">Descripción:</label><br>
+              <input type="text" id="descripcion" name="descripcion" required><br>
+              <label for="precio">Precio:</label><br>
+              <input type="number" id="precio" name="precio" required><br>
+              <label for="stock">Stock:</label><br>
+              <input type="number" id="stock" name="stock" required><br>
+              <input type="submit" value="Crear Producto">
+          </form>
+  
+          <section>
+              <form id="busqueda-form">
+                <label for="busqueda">Buscar:</label>
+                <input type="text" id="busqueda" placeholder="Buscar por nombre">
+                <button type="submit">Buscar</button>
+              </form>
+          </section>
+  
+          <div class="table-responsive">
+              <table class="table" id="productos-table">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Descripción</th>
+                          <th>Precio</th>
+                          <th>Stock</th>
+                          <th>Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody id="productos-tbody"></tbody>
+              </table>
+          </div>
+      </div>
+  
+      <div id="producto-1-update-section" class="update-section" style="display: none;">
+          <h2>Actualizar Producto</h2>
+          <form onsubmit="updateRow('producto-1'); return false;">
+              <label for="update-id">ID:</label><br>
+              <input type="text" id="update-id" name="id" readonly><br>
+              <label for="update-nombre">Nombre:</label><br>
+              <input type="text" id="update-nombre" name="nombre" required><br>
+              <label for="update-descripcion">Descripción:</label><br>
+              <input type="text" id="update-descripcion" name="descripcion" required><br>
+              <label for="update-precio">Precio:</label><br>
+              <input type="number" id="update-precio" name="precio" required><br>
+              <label for="update-stock">Stock:</label><br>
+              <input type="number" id="update-stock" name="stock" required><br>
+              <input type="submit" value="Actualizar">
+          </form>
+      </div>
+  
+      <script>
           
-      function addRow() {
-        // Obtén los valores del formulario de creación
-        var nuevoNombre = document.getElementById('nombre').value;
-        var nuevoNit = document.getElementById('nit').value;
-        var nuevaDireccion = document.getElementById('direccion').value;
-
-        // Validación de entrada
-        if (!nuevoNombre || !nuevoNit || !nuevaDireccion) {
-            alert('Todos los campos son obligatorios');
-            return;
-        }
-
-        // Crea una nueva fila y agrega celdas con los valores
-        var table = document.getElementById('clientes-table');
-        var newRow = table.insertRow(table.rows.length);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
-
-        // Asigna un identificador único a la nueva fila
-        newRow.id = 'cliente-' + (table.rows.length - 1);
-
-        // Agrega los valores a las celdas
-        cell1.innerText = nuevoNombre;
-        cell2.innerText = nuevoNit;
-        cell3.innerText = nuevaDireccion;
-
-        // Agrega botones de editar y eliminar a la nueva fila
-        cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
-            '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
-
-        // Asigna las funciones de JavaScript a los nuevos botones
-        var editButton = cell4.querySelector('button:nth-child(1)');
-        var deleteButton = cell4.querySelector('button:nth-child(2)');
-
-        editButton.onclick = function () {
-            showUpdateForm(newRow.id);
-        };
-
-        deleteButton.onclick = function () {
-            deleteRow(newRow.id);
-        };
-
-        // Mensaje de confirmación
-        alert('Cliente agregado exitosamente');
-
-        // Limpia el formulario
-        document.getElementById('nombre').value = '';
-        document.getElementById('nit').value = '';
-        document.getElementById('direccion').value = '';
-      }
-
-
-
-    </script>
-
-        
-    </div>
-
-    <script>
-      function showUpdateForm(clienteId) {
-          // Obtén la fila por su identificador único
-          var row = document.getElementById(clienteId);
-  
-          // Obtén los datos de la fila
-          var nombre = row.cells[0].innerText;
-          var nit = row.cells[1].innerText;
-          var direccion = row.cells[2].innerText;
-  
-          // Llena los campos del formulario de actualización con los datos actuales
-          document.getElementById('update-nombre').value = nombre;
-          document.getElementById('update-nit').value = nit;
-          document.getElementById('update-direccion').value = direccion;
-  
-          // Muestra la sección de actualización
-          var updateSection = document.getElementById(clienteId + '-update-section');
-          if (updateSection) {
-              updateSection.style.display = 'block';
+      
+          function addRow() {
+              var nuevoId = generateUniqueId();
+              var nuevoNombre = document.getElementById('nombre').value;
+              var nuevaDescripcion = document.getElementById('descripcion').value;
+              var nuevoPrecio = document.getElementById('precio').value;
+              var nuevoStock = document.getElementById('stock').value;
+      
+              if (!nuevoNombre || !nuevaDescripcion || !nuevoPrecio || !nuevoStock) {
+                  alert('Todos los campos son obligatorios');
+                  return;
+              }
+      
+              var table = document.getElementById('productos-table');
+              var newRow = table.insertRow(table.rows.length);
+              var cell1 = newRow.insertCell(0);
+              var cell2 = newRow.insertCell(1);
+              var cell3 = newRow.insertCell(2);
+              var cell4 = newRow.insertCell(3);
+              var cell5 = newRow.insertCell(4);
+              var cell6 = newRow.insertCell(5);
+      
+              newRow.id = 'producto-' + (table.rows.length - 1);
+      
+              cell1.innerText = nuevoId;
+              cell2.innerText = nuevoNombre;
+              cell3.innerText = nuevaDescripcion;
+              cell4.innerText = nuevoPrecio;
+              cell5.innerText = nuevoStock;
+      
+              cell6.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
+                  '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+      
+              var editButton = cell6.querySelector('button:nth-child(1)');
+              var deleteButton = cell6.querySelector('button:nth-child(2)');
+      
+              editButton.onclick = function () {
+                  showUpdateForm(newRow.id);
+              };
+      
+              deleteButton.onclick = function () {
+                  deleteRow(newRow.id);
+              };
+      
+              alert('Producto agregado exitosamente');
+      
+              document.getElementById('nombre').value = '';
+              document.getElementById('descripcion').value = '';
+              document.getElementById('precio').value = '';
+              document.getElementById('stock').value = '';
           }
-      }
-    </script>
-
-    <script>
-      function updateRow(clienteId) {
-          // Obtén los nuevos valores del formulario de actualización
-          var nuevoNombre = document.getElementById('update-nombre').value;
-          var nuevoNit = document.getElementById('update-nit').value;
-          var nuevaDireccion = document.getElementById('update-direccion').value;
-
-        // Logging for debugging
-          console.log('Updating row:', clienteId);
-          console.log('New values:', nuevoNombre, nuevoNit, nuevaDireccion);
-  
-          // Obtén la fila por su identificador único
-          var row = document.getElementById(clienteId);
-  
-          // Actualiza los datos en la fila
-          row.cells[0].innerText = nuevoNombre;
-          row.cells[1].innerText = nuevoNit;
-          row.cells[2].innerText = nuevaDireccion;
-  
-          // Oculta la sección de actualización
-          var updateSection = document.getElementById(clienteId + '-update-section');
-          if (updateSection) {
-              updateSection.style.display = 'none';
+      
+          function generateUniqueId() {
+              return 'prod-' + Date.now();
           }
-      }
-  </script>
-
-  <script>
-        function consultarDatos() {
-            var fileInput = document.getElementById('formFile');
-            var file = fileInput.files[0];
-
-            if (file) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    var xmlString = e.target.result;
-                    procesarXML(xmlString);
-                };
-
-                reader.readAsText(file);
-            } else {
-                alert('Por favor, selecciona un archivo XML primero.');
-            }
-        }
-        function procesarXML(xmlString) {
-            var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-
-            // Limpia la tabla antes de agregar nuevas filas
-            clearTable();
-
-            // Obtén la lista de nodos 'cliente'
-            var clientes = xmlDoc.getElementsByTagName('cliente');
-
-            // Recorre la lista de clientes y agrega filas a la tabla
-            for (var i = 0; i < clientes.length; i++) {
-                var cliente = clientes[i];
-                var nit = cliente.getElementsByTagName('nit')[0].textContent;
-                var nombre = cliente.getElementsByTagName('nombre')[0].textContent;
-                var direccion = cliente.getElementsByTagName('direccion')[0].textContent;
-
-                // Añade una fila a la tabla con los datos obtenidos
-                addRowToTable(nombre, nit, direccion, i);
-            }
-
-            // Mensaje de confirmación
-            alert('Datos del XML consultados exitosamente');
-        }
-
-        // Función para limpiar la tabla
-        function clearTable() {
-            var table = document.getElementById('clientes-table');
-            var tbody = table.getElementsByTagName('tbody')[0];
-            tbody.innerHTML = ''; // Elimina el contenido del cuerpo de la tabla
-        }
-
-        // Función para agregar una fila a la tabla con un identificador único basado en el índice
-        function addRowToTable(nombre, nit, direccion, index) {
-            // Añade una fila a la tabla con los datos obtenidos
-            var table = document.getElementById('clientes-table');
-            var tbody = table.getElementsByTagName('tbody')[0];
-            var newRow = tbody.insertRow(tbody.rows.length);
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-
-            // Asigna un identificador único a la nueva fila basado en el índice
-            newRow.id = 'cliente-' + index;
-
-            // Agrega los valores a las celdas
-            cell1.innerText = nombre;
-            cell2.innerText = nit;
-            cell3.innerText = direccion;
-
-            // Agrega botones de editar y eliminar a la nueva fila
-            cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
-                '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
-        }
-
-    </script>
-  
-  <script>
-      function deleteRow(clienteId) {
-          // Encuentra la fila por su identificador único y elimínala
-          var row = document.getElementById(clienteId);
-          if (row) {
-              console.log('Eliminando fila:', clienteId);
-              row.parentNode.removeChild(row);
-          } else {
-              console.error('No se encontró la fila con el identificador:', clienteId);
+      
+          function showUpdateForm(productoId) {
+              var index = productoId.split('-')[1];
+              var row = document.getElementById(productoId);
+      
+              var id = row.cells[0].innerText;
+              var nombre = row.cells[1].innerText;
+              var descripcion = row.cells[2].innerText;
+              var precio = row.cells[3].innerText;
+              var stock = row.cells[4].innerText;
+              var index = productoId.split('-')[1];
+      
+              document.getElementById('update-id').value = id;
+              document.getElementById('update-nombre').value = nombre;
+              document.getElementById('update-descripcion').value = descripcion;
+              document.getElementById('update-precio').value = precio;
+              document.getElementById('update-stock').value = stock;
+      
+              var updateSection = document.getElementById(productoId + '-update-section');
+              if (updateSection) {
+                  updateSection.style.display = 'block';
+              }
           }
-      }
-  </script>
+      
+          function updateRow(productoId) {
+              var index = productoId.split('-')[1];
+              var nuevoId = document.getElementById('update-id').value;
+              var nuevoNombre = document.getElementById('update-nombre').value;
+              var nuevaDescripcion = document.getElementById('update-descripcion').value;
+              var nuevoPrecio = document.getElementById('update-precio').value;
+              var nuevoStock = document.getElementById('update-stock').value;
+      
+              console.log('Updating row:', productoId);
+              console.log('New values:', nuevoId, nuevoNombre, nuevaDescripcion, nuevoPrecio, nuevoStock);
+      
+              var row = document.getElementById(productoId);
+              row.cells[0].innerText = nuevoId;
+              row.cells[1].innerText = nuevoNombre;
+              row.cells[2].innerText = nuevaDescripcion;
+              row.cells[3].innerText = nuevoPrecio;
+              row.cells[4].innerText = nuevoStock;
+      
+              var updateSection = document.getElementById(productoId + '-update-section');
+              if (updateSection) {
+                  updateSection.style.display = 'none';
+              }
+          }
+      </script>
   
-  <script>
-        function showClientes() {
-            var clientesSection = document.getElementById("clientes-section");
-            var fileUploadSection = document.getElementById("file-upload-section");
-            var additionalButtonsSection = document.getElementById("additional-buttons-section");
-
-            if (clientesSection.style.display === "none" || clientesSection.style.display === "") {
-                clientesSection.style.display = "block";
-                fileUploadSection.style.display = "block";
-                additionalButtonsSection.style.display = "block";
-            } else {
-                clientesSection.style.display = "none";
-                fileUploadSection.style.display = "none";
-                additionalButtonsSection.style.display = "none";
-            }
-        }
-  </script> 
+      <script>
+          function consultarDatos() {
+              var fileInput = document.getElementById('formFile');
+              var file = fileInput.files[0];
+      
+              if (file) {
+                  var reader = new FileReader();
+      
+                  reader.onload = function (e) {
+                      var xmlString = e.target.result;
+                      procesarXML(xmlString);
+                  };
+      
+                  reader.readAsText(file);
+              } else {
+                  alert('Por favor, selecciona un archivo XML primero.');
+              }
+          }
+      
+          function procesarXML(xmlString) {
+              var parser = new DOMParser();
+              var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+      
+              clearTable();
+      
+              var productos = xmlDoc.getElementsByTagName('producto');
+      
+              for (var i = 0; i < productos.length; i++) {
+                  var producto = productos[i];
+                  var id = producto.getElementsByTagName('id')[0].textContent;
+                  var nombre = producto.getElementsByTagName('nombre')[0].textContent;
+                  var descripcion = producto.getElementsByTagName('descripcion')[0].textContent;
+                  var precio = producto.getElementsByTagName('precio')[0].textContent;
+                  var stock = producto.getElementsByTagName('stock')[0].textContent;
+      
+                  addRowToTable(id, nombre, descripcion, precio, stock, i);
+              }
+      
+              alert('Datos del XML consultados exitosamente');
+          }
+  
+      
+  
+              function clearTable() {
+                  var table = document.getElementById('productos-table'); 
+                  var tbody = table.getElementsByTagName('tbody')[0];
+                  tbody.innerHTML = ''; 
+              }
+          
+              
+              function addRowToTable(id, nombre, descripcion, precio, stock, index) {
+                  var table = document.getElementById('productos-table'); 
+                  var tbody = table.getElementsByTagName('tbody')[0];
+                  var newRow = tbody.insertRow(tbody.rows.length);
+                  var cell1 = newRow.insertCell(0);
+                  var cell2 = newRow.insertCell(1);
+                  var cell3 = newRow.insertCell(2);
+                  var cell4 = newRow.insertCell(3);
+                  var cell5 = newRow.insertCell(4);
+                  var cell6 = newRow.insertCell(5);
+                  var cell7 = newRow.insertCell(6);
+          
+                
+                  newRow.id = 'producto-' + index; 
+                  cell1.innerText = id;
+                  cell2.innerText = nombre;
+                  cell3.innerText = descripcion;
+                  cell4.innerText = precio;
+                  cell5.innerText = stock;
+          
+                  cell6.innerHTML = '<button onclick="showUpdateForm(' + index + ')">Editar</button>' +
+                      '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+              }
+      </script>
+      <script>
+              function deleteRow(productoId) {
+                  var row = document.getElementById(productoId);
+                  if (row) {
+                      console.log('Eliminando fila:', productoId);
+                      row.parentNode.removeChild(row);
+                  } else {
+                      console.error('No se encontró la fila con el identificador:', productoId);
+                  }
+              }
+          </script>
+  
+  
+          <script>
+              function showProductos() {
+                  var productosSection = document.getElementById("productos-section");
+                  var fileUploadProductoSection = document.getElementById("file-upload-section"); 
+                  var additionalButtonsProductoSection = document.getElementById("additional-buttons-section"); 
+              
+                  if (productosSection.style.display === "none" || productosSection.style.display === "") {
+                      productosSection.style.display = "block";
+                      fileUploadProductoSection.style.display = "block";
+                      additionalButtonsProductoSection.style.display = "block";
+                  } else {
+                      productosSection.style.display = "none";
+                      fileUploadProductoSection.style.display = "none";
+                      additionalButtonsProductoSection.style.display = "none";
+                  }
+              }
+        </script> 
+  
+        <script>
+              // Función para filtrar filas en la tabla
+          function filtrarFilas(terminoBusqueda) {
+          var table = document.getElementById('productos-table');
+          var tbody = table.getElementsByTagName('tbody')[0];
+          var filas = tbody.getElementsByTagName('tr');
+          
+          for (var i = 0; i < filas.length; i++) {
+          var fila = filas[i];
+          var celdas = fila.getElementsByTagName('td');
+          var contieneTermino = false;
+          
+          for (var j = 0; j < celdas.length; j++) {
+              var textoCelda = celdas[j].textContent || celdas[j].innerText;
+              if (textoCelda.toLowerCase().includes(terminoBusqueda.toLowerCase())) {
+              contieneTermino = true;
+              break;
+              }
+          }
+          
+          fila.style.display = contieneTermino ? '' : 'none';
+          }
+          }
+          
+          document.getElementById('busqueda-form').addEventListener('submit', function (event) {
+          event.preventDefault();
+          var terminoBusqueda = document.getElementById('busqueda').value.trim();
+          filtrarFilas(terminoBusqueda);
+          });
+      
+      </script>
   
 
   <script
@@ -333,8 +374,49 @@
     {% block body %}
    
     {% endblock %}
+
+    <script>
+
+        function exportar(filename) {
+            //parseamos los datos de la tabla a un xml 
+            var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<productos>\n';
+            var rows = document.querySelectorAll('table tbody tr');
+        
+            for (var i = 0; i < rows.length; i++) {
+                xml += '  <producto>\n';
+                var cols = rows[i].querySelectorAll('td');
+        
+                // en este for el -1 hace que no se muestre la la parte de elimar/Agregar  y va agregando cada linea del xml basado en la tabla
+                for (var j = 0; j < cols.length -1; j++) {
+                    var columna = document.querySelectorAll('table thead th')[j].innerText;
+                    xml += '    <' + columna.toLowerCase().replace(' ', '_') + '>' + cols[j].innerText + '</' + columna.toLowerCase().replace(' ', '_') + '>\n';
+                }
+        
+                xml += '  </producto>\n';
+            }
+        
+            xml += '</productos>';
+        
+            // Descargar el archivo XML
+           descargar(xml, filename);
+        }
+        
+        function descargar(xml, filename) {
+            var xmlFile;
+            var downloadLink;
+        
+            xmlFile = new Blob([xml], {type: 'application/xml'});
+            downloadLink = document.createElement('a');
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(xmlFile);
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+        }
+
+    </script>
     
-    <footer class="pie-pagina">
+    <!-- <footer class="pie-pagina">
       <div class="grupo-1">
           <div class="box">
               <figure>
@@ -361,7 +443,7 @@
       <div class="grupo-2">
           <small>&copy; 2023 <b>Proyecto 2-Grupo 8 S.A.</b> - Todos los Derechos Reservados.</small>
       </div>
-    </footer>
+    </footer> -->
     
 </body>
 </html>
