@@ -60,6 +60,8 @@
     <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
         <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+        <button onclick="exportar('clientes-tabla.xml')">Exportar a XML</button>
+    
     </div>
 
     <div id="clientes-section" style="display: none; padding: 20px;">
@@ -101,6 +103,8 @@
             <input type="submit" value="Actualizar">
         </form>
     </div>
+    
+
 
     <script>
           
@@ -333,35 +337,52 @@
     {% block body %}
    
     {% endblock %}
+
+  <script>
+
+    function exportar(filename) {
+        //parseamos los datos de la tabla a un xml 
+        var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<clientes>\n';
+        var rows = document.querySelectorAll('table tbody tr');
     
-    <footer class="pie-pagina">
-      <div class="grupo-1">
-          <div class="box">
-              <figure>
-                  <a href="{% url 'Home' %}">
-                      <img src="{% static 'logo.png' %}" alt="Logo Grupo8">
-                  </a>
-              </figure>
-          </div>
-          <div class="box">
-              <h2>SOBRE NOSOTROS</h2>
-              <p>Somos una red social capaz de desarrollar y analizar el contenido de nuestros usuarios. </p>
-              <p>Establecemos perfiles que favorezcan a conocer a todos nuestros usuarios y brindar un servicio personalizado.</p>
-          </div>
-          <div class="box">
-              <h2>SIGUENOS</h2>
-              <div class="red-social">
-                  <a href="#" class="fa fa-facebook"></a>
-                  <a href="#" class="fa fa-instagram"></a>
-                  <a href="#" class="fa fa-twitter"></a>
-                  <a href="#" class="fa fa-youtube"></a>
-              </div>
-          </div>
-      </div>
-      <div class="grupo-2">
-          <small>&copy; 2023 <b>Proyecto 2-Grupo 8 S.A.</b> - Todos los Derechos Reservados.</small>
-      </div>
-    </footer>
+        for (var i = 0; i < rows.length; i++) {
+            xml += '  <cliente>\n';
+            var cols = rows[i].querySelectorAll('td');
     
+            // en este for el -1 hace que no se muestre la la parte de elimar/Agregar  y va agregando cada linea del xml basado en la tabla
+            for (var j = 0; j < cols.length -1; j++) {
+                var columna = document.querySelectorAll('table thead th')[j].innerText;
+                xml += '    <' + columna.toLowerCase().replace(' ', '_') + '>' + cols[j].innerText + '</' + columna.toLowerCase().replace(' ', '_') + '>\n';
+            }
+    
+            xml += '  </cliente>\n';
+        }
+    
+        xml += '</clientes>';
+    
+        // Descargar el archivo XML
+       descargar(xml, filename);
+    }
+    
+    function descargar(xml, filename) {
+        var xmlFile;
+        var downloadLink;
+    
+        xmlFile = new Blob([xml], {type: 'application/xml'});
+        downloadLink = document.createElement('a');
+        downloadLink.download = filename;
+        downloadLink.href = window.URL.createObjectURL(xmlFile);
+        downloadLink.style.display = 'none';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+    }
+    
+
+
+  </script>
+    
+<!-
+  acá debe ir el footer pero lo quite porque no me deja ver bien las tablas 
+–>
 </body>
 </html>
