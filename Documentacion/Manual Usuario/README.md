@@ -29,31 +29,35 @@ luego al darle comenzar nos dirige a home donde encontramos los siguientes boton
 ## Inicio-Home
 Cuenta con interfaz simple, sencilla y minimalista, que le permite al usuario ciertas funciones basicas las que fueron mencionadas anteriormente para que el usuario pueda interactuar con la aplicacion de una manera facil y sencilla.
 
-[Inicio]
+### [Inicio]
 <p align="center">
     <img src="IMG\inicio.png">
 </p>  
 AL dar click en Comenzar nos redirige a:
 
-[Home]
+### [Home]
 <p align="center">
     <img src="IMG\Home.png">
 </p>  
 
-Aqui encontramos 3 botones que si seleccionamos por ejemplo Clientes nos redirige a:
-[Clientes]
+Aqui encontramos 3 botones que si seleccionamos por ejemplo `Clientes` nos redirige a:
+
+### [Clientes]
 <p align="center">
     <img src="IMG\clients.png">
 </p>  
 
-al volver a seleccionar el Boton de clientes este despliega lo siguiente:
+Al volver a seleccionar el boton de `Clientes`, este desplegara lo siguiente:
 <p align="center">
     <img src="IMG\btnclient.png">
 </p>  
 <p align="center">
     <img src="IMG\clickbtnclients.png">
 </p>  
-Cargar un arhcivo xml para ver nuestros clientes. dirigase a la ventana de clientes/ y seleccione el boton de Examinar....
+
+### Carga xml 
+
+Cargar un arhcivo xml para ver nuestros clientes. dirigase a la ventana de clientes/ y seleccione el boton de `Examinar....`
 <p align="center">
     <img src="IMG\load.png">
 </p>  
@@ -61,16 +65,16 @@ Se despliegara lo siguiente:
 <p align="center">
     <img src="IMG\archivo.png">
 </p>  
-seleccione el documento a cargar.
+Seleccione el documento que desea cargar.
 <p align="center">
     <img src="IMG\seleccli.png">
 </p>  
-de click en abrir y este le mostrara que se cargo exitosamente, mostrandose de la siguiente manera:
+De click en abrir y este le mostrara que se cargo exitosamente, mostrandose de la siguiente manera:
 <p align="center">
     <img src="IMG\fileloadcli.png">
 </p>  
 
-para poder consultar los clientes se debe seleccionar el boton de clientes/ y en la parte superior encontrara el boton de Consultar datos.
+Para poder ver los datos que contiene el xml que cargo de click en el boton que dice `Consultar Datos`.
 <p align="center">
     <img src="IMG\consultardatos.png">
 </p>  
@@ -78,7 +82,7 @@ y este le mostrara el siguiente mensaje.
 <p align="center">
     <img src="IMG\msgdatos.png">
 </p> 
-y este le mostrara los clientes cargados.
+Y este le mostrara los clientes cargados.
 <p align="center">
     <img src="IMG\tabledat.png">
 </p>
@@ -86,7 +90,10 @@ Viendose la tabla de la siguiente forma:
 <p align="center">
     <img src="IMG\clientes.png">
 </p>
-Ahora si desea añadir un cliente dirijase a la parte de Crear cliente
+
+ ### Crear cliente 
+
+Ahora si desea añadir un cliente o crear uno nuevo, dirijase a la parte de Crear cliente
 <p align="center">
     <img src="IMG\clienarea.png">
 </p>
@@ -94,11 +101,13 @@ Llene los campos
 <p align="center">
     <img src="IMG\clienup.png">
 </p>
-luego de clic en Crear cliente 
+
+luego de clic en `Crear cliente`  
+
 <p align="center">
     <img src="IMG\newclien.png">
 </p>
-este Le mostrara el siguiente mensaje
+Este le mostrara el siguiente mensaje
 <p align="center">
     <img src="IMG\msgcli.png">
 </p>
@@ -106,6 +115,19 @@ y podra visualizar el cliente creado en su tabla
 <p align="center">
     <img src="IMG\tablanewcl.png">
 </p>
+
+### Buscar
+También puede utilizar la barra de buscar para poder encontrar un cliente en particular.
+ <p align="center">
+    <img src="IMG\">
+</p>
+Solo debe colocar el nombre del cliente, id, nit o dirección y el sistema le mostrará los resultados de la búsqueda.
+ <p align="center">
+    <img src="IMG\">
+</p>
+
+### Actualizar
+
 Ahora si desea actualizar seleccione un usuario
 este despliegara lo siguiente:
 <p align="center">
@@ -129,3 +151,346 @@ si quiere eliminar un usuario solo selecionelo y este se eliminara de la tabla
     <img src="IMG\">
 </p>
 
+### Exportar xml
+Para poder exportar los datos a un archivo xml solo debe seleccionar el boton de exportar xml que se encuentra a la par donde carga el xml, este exportara la tabla con todos los datos que contiene esta.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+y se mostrará el siguiente mensaje:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Así lucira el xml que se descargara en su ordenador:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+### [Productos]
+<p align="center">
+    <img src="IMG\producto.png">
+</p> 
+
+Al volver a seleccionar el boton de `Productos`, este desplegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\btnproducto.png">
+</p>
+ 
+<p align="center">
+    <img src="IMG\clickpro.png">
+</p>
+
+### Carga xml 
+
+Cargar un arhcivo xml para ver nuestros productos. dirigase a la ventana de productos/ y seleccione el boton de `Examinar....`
+
+<p align="center">
+    <img src="IMG\selecpro.png">
+</p>
+
+Se despliegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\archivo.png">
+</p> 
+
+Seleccione el documento que desea cargar.
+
+<p align="center">
+    <img src="IMG\loadprod.png">
+</p>
+ 
+De click en abrir y este le mostrara que se cargo exitosamente, mostrandose de la siguiente manera:
+
+<p align="center">
+    <img src="IMG\producload.png">
+</p>  
+
+Para poder ver los datos que contiene el xml que cargo de click en el boton que dice `Consultar Datos`.
+
+<p align="center">
+    <img src="IMG\consultardatos.png">
+</p>
+ 
+Y este le mostrara el siguiente mensaje.
+
+<p align="center">
+    <img src="IMG\msgdatos.png">
+</p>
+
+Y este le mostrara los productos cargados.
+
+<p align="center">
+    <img src="IMG\table1pro.png">
+</p>
+
+Viendose la tabla de la siguiente forma:
+
+<p align="center">
+    <img src="IMG\table2pro.png">
+</p>
+
+ ### Crear Producto
+
+Ahora si desea añadir un producto o crear uno nuevo, dirijase a la parte de Crear Producto
+
+<p align="center">
+    <img src="IMG\newproduc.png">
+</p>
+
+Llene los campos
+
+<p align="center">
+    <img src="IMG\dataproducto.png">
+</p>
+
+luego de clic en `Crear Producto`  
+
+<p align="center">
+    <img src="IMG\btnproducnew.png">
+</p>
+
+Este le mostrara el siguiente mensaje
+
+<p align="center">
+    <img src="IMG\msgprodu.png">
+</p>
+
+y podra visualizar el producto creado en su tabla
+
+<p align="center">
+    <img src="IMG\productnewtable.png">
+</p>
+
+### Buscar
+
+También puede utilizar la barra de buscar para poder encontrar un producto en particular.
+
+ <p align="center">
+    <img src="IMG\searchpro.png">
+</p>
+Solo debe colocar el nombre del producto, precio, descripción, id, stock y el sistema le mostrará los resultados de la búsqueda.
+
+ <p align="center">
+    <img src="IMG\productsearch.png">
+</p>
+
+### Actualizar
+
+Ahora si desea actualizar seleccione un producto
+este despliegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Puede modificar todos los datos que desea y una vez de click en actualizar
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Este nos mostrara el siguiente mensaje
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Y podra visualizalo que se modifico producto que actualizo:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Si quiere eliminar un producto solo selecionelo y este se eliminara de la tabla (ejemplo)
+
+<p align="center">
+    <img src="IMG\deleteprod.png">
+</p>
+
+### Exportar xml
+Para poder exportar los datos a un archivo xml solo debe seleccionar el boton de exportar xml que se encuentra a la par donde carga el xml, este exportara la tabla con todos los datos que contiene esta.
+
+<p align="center">
+    <img src="IMG\export.png">
+</p>
+
+Y se mostrará el siguiente mensaje:
+
+<p align="center">
+    <img src="IMG\expormsgprod.png">
+</p>
+
+Así lucira el xml que se descargara en su ordenador:
+
+<p align="center">
+    <img src="IMG\expxmlprod.png">
+</p>
+
+
+### [Facturas]
+<p align="center">
+    <img src="IMG\">
+</p> 
+
+Al volver a seleccionar el boton de `Productos`, este desplegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+ 
+<p align="center">
+    <img src="IMG\">
+</p>
+
+### Carga xml 
+
+Cargar un arhcivo xml para ver nuestros productos. dirigase a la ventana de factura/ y seleccione el boton de `Examinar....`
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Se despliegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\">
+</p> 
+
+Seleccione el documento que desea cargar.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+ 
+De click en abrir y este le mostrara que se cargo exitosamente, mostrandose de la siguiente manera:
+
+<p align="center">
+    <img src="IMG\">
+</p>  
+
+Para poder ver los datos que contiene el xml que cargo de click en el boton que dice `Consultar Datos`.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+ 
+Y este le mostrara el siguiente mensaje.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Y este le mostrara los productos cargados.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Viendose la tabla de la siguiente forma:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+ ### Crear Factura
+
+Ahora si desea añadir una nueva Factura, dirijase a la parte de Crear Factura
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Llene los campos
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+luego de clic en `Crear Factura`  
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Este le mostrara el siguiente mensaje
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+y podra visualizar el producto creado en su tabla
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+### Buscar
+
+También puede utilizar la barra de buscar para poder encontrar un producto en particular.
+
+ <p align="center">
+    <img src="IMG\">
+</p>
+Solo debe colocar el nombre, nit, direccion, nombre del producto, precio, descripción, id, stock y el sistema le mostrará los resultados de la búsqueda.
+
+ <p align="center">
+    <img src="IMG\">
+</p>
+
+### Actualizar
+
+Ahora si desea actualizar seleccione una factura
+este despliegara lo siguiente:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Puede modificar todos los datos que desea y una vez de click en actualizar
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Este nos mostrara el siguiente mensaje
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Y podra visualizalo que se modifico la factura que actualizo:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Si quiere eliminar una factura solo selecionelo y este se eliminara de la tabla
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+### Exportar xml
+Para poder exportar los datos a un archivo xml solo debe seleccionar el boton de exportar xml que se encuentra a la par donde carga el xml, este exportara la tabla con todos los datos que contiene esta.
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Y se mostrará el siguiente mensaje:
+
+<p align="center">
+    <img src="IMG\">
+</p>
+
+Así lucira el xml que se descargara en su ordenador:
+
+<p align="center">
+    <img src="IMG\">
+</p>
