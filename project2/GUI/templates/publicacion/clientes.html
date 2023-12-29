@@ -49,8 +49,9 @@
       <br>
 
       <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
-    <button type="button" class="btn btn-primary">Productos</button>
-    <button type="button" class="btn btn-primary">Factura</button>
+      <a href="{% url 'Productos' %}" class="btn btn-primary">Productos</a>
+      <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
+      <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
 
     <div class="mb-3" id="file-upload-section" style="display: none;">
         <label for="formFile" class="form-label">Cargar archivo de entrada</label>
@@ -61,7 +62,6 @@
     
     <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-        <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
     </div>
 
     <div id="clientes-section" style="display: none; padding: 20px;">

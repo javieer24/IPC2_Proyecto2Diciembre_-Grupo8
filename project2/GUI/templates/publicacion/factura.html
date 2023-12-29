@@ -50,16 +50,15 @@
     <a href="{% url 'Clientes' %}" class="btn btn-primary">Clientes</a>
     <a href="{% url 'Productos' %}" class="btn btn-primary">Productos</a>
     <button type="button" class="btn btn-primary" onclick="showFacturas()">Factura</button>
+    <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
 
     <div class="mb-3" id="file-upload-section" style="display: none;">
         <label for="formFile" class="form-label">Cargar archivo de entrada</label>
         <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
+        <button onclick="exportar('clientes-tabla.xml')">Exportar a XML</button>
     </div>
-    
     <div class="col-12 button-container">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-        <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
-        <button onclick="exportar('clientes-tabla.xml')">Exportar a XML</button>
     </div>
 
     <div class="container">
@@ -582,7 +581,7 @@ function addRowToTable(nitFactura, nombreFactura, direccionFactura, nombreProduc
                 // en este for el -1 hace que no se muestre la la parte de elimar/Agregar  y va agregando cada linea del xml basado en la tabla
                 for (var j = 0; j < cols.length -1; j++) {
                     var columna = document.querySelectorAll('table thead th')[j].innerText;
-                    xml += '    <' + columna.toLowerCase().replace(' ', '_') + '>' + cols[j].innerText + '</' + columna.toLowerCase().replace(' ', '_') + '>\n';
+                    xml += '    <' + columna.toLowerCase().replace(' ', '') + '>' + cols[j].innerText + '</' + columna.toLowerCase().replace(' ', '') + '>\n';
                 }
         
                 xml += '  </factura>\n';
