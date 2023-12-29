@@ -60,9 +60,10 @@
           <button onclick="exportar('productos-tabla.xml')">Exportar a XML</button>
         </div>
       
-      <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
-          <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
-      </div>
+        <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
+            <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
+            <button type="button" class="btn btn-primary" onclick="verificarDatosAntesDeRedireccionar()">Productos Más Vendidos</button>
+        </div>        
   
       <div id="productos-section" class="crear-producto" style="display: none; padding: 20px;">
           <h2>Crear Producto</h2>
@@ -227,6 +228,7 @@
       </script>
   
       <script>
+        var datosCargados = false; 
           function consultarDatos() {
               var fileInput = document.getElementById('formFile');
               var file = fileInput.files[0];
@@ -237,6 +239,7 @@
                   reader.onload = function (e) {
                       var xmlString = e.target.result;
                       procesarXML(xmlString);
+                      datosCargados = true; 
                   };
       
                   reader.readAsText(file);
@@ -244,6 +247,13 @@
                   alert('Por favor, selecciona un archivo XML primero.');
               }
           }
+         function verificarDatosAntesDeRedireccionar() {
+            if (!datosCargados) {
+                alert('Por favor, carga los datos antes de ver los productos más vendidos.');
+            } else {
+                window.location.href = "{% url 'ProductosMasVendidos' %}";
+            }
+         }
       
           function procesarXML(xmlString) {
               var parser = new DOMParser();

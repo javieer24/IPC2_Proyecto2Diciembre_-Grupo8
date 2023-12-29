@@ -8,7 +8,5 @@ urlpatterns = [
     path('clientes/', views.Clientes, name='Clientes'),
     path('productos/', views.Productos_List, name='Productos'),
     path('factura/', views.Factura, name='Factura'),
-
- 
-    
+    path('productos-mas-vendidos/', views.ProductosMasVendidos, name='ProductosMasVendidos'),
 ]

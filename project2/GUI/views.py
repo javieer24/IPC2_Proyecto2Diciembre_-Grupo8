@@ -30,6 +30,13 @@ def Productos_List(request):
 def Factura(request):
     return render(request, 'publicacion/factura.html', {})
 
+def ProductosMasVendidos(request):
+    for producto in Productos:
+        producto.id = int(producto.id)
+
+    productos_ordenados = sorted(Productos, key=lambda p: p.ranking_ventas())
+    return render(request, 'publicacion/productos_mas_vendidos.html', {'productos': productos_ordenados})
+
 def Documentation(request):
     context = {
         'STATIC_URL': '/static/',

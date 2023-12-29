@@ -19,3 +19,13 @@ class Producto():
         else:
             self.eliminarProducto() 
         return self.stock
+    
+    mas_vendidos_ids = [2, 4, 1]
+
+    def es_mas_vendido(self):
+        return self.id in Producto.mas_vendidos_ids
+
+    def ranking_ventas(self):
+        if self.es_mas_vendido():
+            return Producto.mas_vendidos_ids.index(int(self.id)) + 1
+        return float('inf')
