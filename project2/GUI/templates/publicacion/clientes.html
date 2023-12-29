@@ -1,4 +1,4 @@
-{% load static %}
+<{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,326 +49,321 @@
       <br>
 
       <button type="button" class="btn btn-primary" onclick="showClientes()">Clientes</button>
-      <a href="{% url 'Productos' %}" class="btn btn-primary">Productos</a>
-      <a href="{% url 'Factura' %}" class="btn btn-primary">Factura</a>
-      <button type="button" class="btn btn-danger"><a href="{% url 'Inicio' %}" style="text-decoration: none; color: white;">Regresar</a></button>
+    <button type="button" class="btn btn-primary">Productos</button>
+    <button type="button" class="btn btn-primary">Factura</button>
 
     <div class="mb-3" id="file-upload-section" style="display: none;">
         <label for="formFile" class="form-label">Cargar archivo de entrada</label>
         <input class="form-control" type="file" id="formFile" style="width: 21.5%; display: inline-block;">
         <button onclick="exportar('clientes-tabla.xml')">Exportar a XML</button>
+    
     </div>
     
     <div class="col-12 button-container" id="additional-buttons-section" style="display: none;">
         <button type="button" class="btn btn-success" onclick="consultarDatos()">Consultar datos</button>
+        <button type="button" class="btn btn-danger"><a href="{% url 'Home' %}" style="text-decoration: none; color: white;">Regresar</a></button>
     </div>
 
-    <div id="clientes-section" class="crear-cliente" style="display: none; padding: 20px;">
-      <h2>Crear Cliente</h2>
-      <form onsubmit="addRow(); return false;">
-          <label for="nombre">Nombre:</label><br>
-          <input type="text" id="nombre" name="nombre"><br>
-          <label for="nit">NIT:</label><br>
-          <input type="text" id="nit" name="nit"><br>
-          <label for="direccion">Dirección:</label><br>
-          <input type="text" id="direccion" name="direccion"><br>
-          <label for="mail">Correo Electrónico:</label><br>
-          <input type="text" id="mail" name="mail"><br>
-          <label for="phone">Teléfono:</label><br>
-          <input type="text" id="phone" name="phone"><br>
-          <label for="id">ID:</label><br>
-          <input type="text" id="id" name="id"><br>
-          <input type="submit" value="Crear Cliente">
-      </form>
+    <div id="clientes-section" style="display: none; padding: 20px;">
+        <h2>Crear Cliente</h2>
+        <form onsubmit="addRow(); return false;">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre"><br>
+            <label for="nit">NIT:</label><br>
+            <input type="text" id="nit" name="nit"><br>
+            <label for="direccion">Dirección:</label><br>
+            <input type="text" id="direccion" name="direccion"><br>
+            <input type="submit" value="Crear Cliente">
+        </form>
 
-      <div class="table-responsive">
-          <table class="table" id="clientes-table">
-              <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>NIT</th>
-                      <th>Nombre</th>
-                      <th>Correo Electrónico</th>
-                      <th>Teléfono</th>
-                      <th>Dirección</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody id="clientes-tbody"></tbody>
-          </table>
-      </div>
-  </div>
+        <section>
+            <form id="busqueda-form">
+              <label for="busqueda">Buscar:</label>
+              <input type="text" id="busqueda" placeholder="Buscar por ID, nombre, NIT o dirección">
+              <button type="submit">Buscar</button>
+            </form>
+          </section>
 
-  <div id="cliente-1-update-section" class="update-section" style="display: none;">
-      <h2>Actualizar Cliente</h2>
-      <form onsubmit="updateRow('cliente-1'); return false;">
-          <label for="update-id">ID:</label><br>
-          <input type="text" id="update-id" name="id"><br>
-          <label for="update-nit">NIT:</label><br>
-          <input type="text" id="update-nit" name="nit"><br>
-          <label for="update-nombre">Nombre:</label><br>
-          <input type="text" id="update-nombre" name="nombre"><br>
-          <label for="update-mail">Correo Electrónico:</label><br>
-          <input type="text" id="update-mail" name="mail"><br>
-          <label for="update-phone">Teléfono:</label><br>
-          <input type="text" id="update-phone" name="phone"><br>
-          <label for="update-direccion">Dirección:</label><br>
-          <input type="text" id="update-direccion" name="direccion"><br>
-          <input type="submit" value="Actualizar">
-      </form>
-  </div>
+        <div class="table-responsive">
+            <table class="table" id="clientes-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>NIT</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-tbody"></tbody>
+            </table>
+        </div>
+    </div>
 
-  <script>
-        
+    <div id="cliente-1-update-section" class="update-section" style="display: none;">
+        <h2>Actualizar Cliente</h2>
+        <form onsubmit="updateRow('cliente-1'); return false;">
+            <label for="update-nombre">Nombre:</label><br>
+            <input type="text" id="update-nombre" name="nombre"><br>
+            <label for="update-nit">NIT:</label><br>
+            <input type="text" id="update-nit" name="nit"><br>
+            <label for="update-direccion">Dirección:</label><br>
+            <input type="text" id="update-direccion" name="direccion"><br>
+            <input type="submit" value="Actualizar">
+        </form>
+    </div>
+
+    <script>
+          
       function addRow() {
-          var nuevoId = document.getElementById('id').value;
-          var nuevoNit = document.getElementById('nit').value;
-          var nuevoNombre = document.getElementById('nombre').value;
-          var nuevoMail = document.getElementById('mail').value;
-          var nuevoPhone = document.getElementById('phone').value;
-          var nuevaDireccion = document.getElementById('direccion').value;
+        // Obtén los valores del formulario de creación
+        var nuevoNombre = document.getElementById('nombre').value;
+        var nuevoNit = document.getElementById('nit').value;
+        var nuevaDireccion = document.getElementById('direccion').value;
 
-          if (!nuevoId || !nuevoNit || !nuevoNombre || !nuevoMail || !nuevoPhone || !nuevaDireccion) {
-              alert('Todos los campos son obligatorios');
-              return;
-          }
+        // Validación de entrada
+        if (!nuevoNombre || !nuevoNit || !nuevaDireccion) {
+            alert('Todos los campos son obligatorios');
+            return;
+        }
 
-          var table = document.getElementById('clientes-table');
-          var newRow = table.insertRow(table.rows.length);
-          var cell1 = newRow.insertCell(0);
-          var cell2 = newRow.insertCell(1);
-          var cell3 = newRow.insertCell(2);
-          var cell4 = newRow.insertCell(3);
-          var cell5 = newRow.insertCell(4);
-          var cell6 = newRow.insertCell(5);
-          var cell7 = newRow.insertCell(6);
+        // Crea una nueva fila y agrega celdas con los valores
+        var table = document.getElementById('clientes-table');
+        var newRow = table.insertRow(table.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
 
-          newRow.id = 'cliente-' + (table.rows.length - 1);  
-      
-          cell1.innerText = nuevoId;
-          cell2.innerText = nuevoNit;
-          cell3.innerText = nuevoNombre;
-          cell4.innerText = nuevoMail;
-          cell5.innerText = nuevoPhone;
-          cell6.innerText = nuevaDireccion;
-      
-          cell7.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
-              '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
-      
-          var editButton = cell7.querySelector('button:nth-child(1)');
-          var deleteButton = cell7.querySelector('button:nth-child(2)');
-      
-          editButton.onclick = function () {
-              showUpdateForm(newRow.id);
-          };
-          
-          deleteButton.onclick = function () {
-              deleteRow(newRow.id);
-          };
-      
-          alert('Cliente agregado exitosamente');
-      
-          document.getElementById('id').value = '';
-          document.getElementById('nit').value = '';
-          document.getElementById('nombre').value = '';
-          document.getElementById('mail').value = '';
-          document.getElementById('phone').value = '';
-          document.getElementById('direccion').value = '';
+        // Asigna un identificador único a la nueva fila
+        newRow.id = 'cliente-' + (table.rows.length - 1);
+
+        // Agrega los valores a las celdas
+        cell1.innerText = nuevoNombre;
+        cell2.innerText = nuevoNit;
+        cell3.innerText = nuevaDireccion;
+
+        // Agrega botones de editar y eliminar a la nueva fila
+        cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
+            '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+
+        // Asigna las funciones de JavaScript a los nuevos botones
+        var editButton = cell4.querySelector('button:nth-child(1)');
+        var deleteButton = cell4.querySelector('button:nth-child(2)');
+
+        editButton.onclick = function () {
+            showUpdateForm(newRow.id);
+        };
+
+        deleteButton.onclick = function () {
+            deleteRow(newRow.id);
+        };
+
+        // Mensaje de confirmación
+        alert('Cliente agregado exitosamente');
+
+        // Limpia el formulario
+        document.getElementById('nombre').value = '';
+        document.getElementById('nit').value = '';
+        document.getElementById('direccion').value = '';
       }
-      
-      function addRowToTable(id, nit, nombre, mail, phone, direccion, index) {
+
+
+
+    </script>
+
         
-          var table = document.getElementById('clientes-table');
-          var tbody = table.getElementsByTagName('tbody')[0];
-          var newRow = tbody.insertRow(tbody.rows.length);
-          var cell1 = newRow.insertCell(0);
-          var cell2 = newRow.insertCell(1);
-          var cell3 = newRow.insertCell(2);
-          var cell4 = newRow.insertCell(3);
-          var cell5 = newRow.insertCell(4);
-          var cell6 = newRow.insertCell(5);
-          var cell7 = newRow.insertCell(6);
-      
-          newRow.id = 'cliente-' + index;
-      
-          cell1.innerText = id;
-          cell2.innerText = nit;
-          cell3.innerText = nombre;
-          cell4.innerText = mail;
-          cell5.innerText = phone;
-          cell6.innerText = direccion;
-      
-          cell7.innerHTML = '<button onclick="showUpdateForm(' + index + ')">Editar</button>' +
-          '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+    </div>
 
-      }
-
-
-
-  </script>
-
-      
-  </div>
-
-  <script>
-    function showUpdateForm(clienteId) {
-      var index = clienteId.split('-')[1];
-      var row = document.getElementById(clienteId);
-
-          
-          var id = row.cells[0].innerText;
+    <script>
+      function showUpdateForm(clienteId) {
+          // Obtén la fila por su identificador único
+          var row = document.getElementById(clienteId);
+  
+          // Obtén los datos de la fila
+          var nombre = row.cells[0].innerText;
           var nit = row.cells[1].innerText;
-          var nombre = row.cells[2].innerText;
-          var mail = row.cells[3].innerText;
-          var phone = row.cells[4].innerText;
-          var direccion = row.cells[5].innerText;
-          var index = clienteId.split('-')[1];
-
-         
-          document.getElementById('update-id').value = id;
-          document.getElementById('update-nit').value = nit;
+          var direccion = row.cells[2].innerText;
+  
+          // Llena los campos del formulario de actualización con los datos actuales
           document.getElementById('update-nombre').value = nombre;
-          document.getElementById('update-mail').value = mail;
-          document.getElementById('update-phone').value = phone;
+          document.getElementById('update-nit').value = nit;
           document.getElementById('update-direccion').value = direccion;
-
+  
+          // Muestra la sección de actualización
           var updateSection = document.getElementById(clienteId + '-update-section');
           if (updateSection) {
               updateSection.style.display = 'block';
           }
-    }
+      }
+    </script>
+
+    <script>
+      function updateRow(clienteId) {
+          // Obtén los nuevos valores del formulario de actualización
+          var nuevoNombre = document.getElementById('update-nombre').value;
+          var nuevoNit = document.getElementById('update-nit').value;
+          var nuevaDireccion = document.getElementById('update-direccion').value;
+
+        // Logging for debugging
+          console.log('Updating row:', clienteId);
+          console.log('New values:', nuevoNombre, nuevoNit, nuevaDireccion);
+  
+          // Obtén la fila por su identificador único
+          var row = document.getElementById(clienteId);
+  
+          // Actualiza los datos en la fila
+          row.cells[0].innerText = nuevoNombre;
+          row.cells[1].innerText = nuevoNit;
+          row.cells[2].innerText = nuevaDireccion;
+  
+          // Oculta la sección de actualización
+          var updateSection = document.getElementById(clienteId + '-update-section');
+          if (updateSection) {
+              updateSection.style.display = 'none';
+          }
+      }
   </script>
 
   <script>
-    function updateRow(clienteId) {
-        var index = clienteId.split('-')[1]; // Añade esta línea para obtener el índice
-  var nuevoId = document.getElementById('update-id').value;
-  var nuevoNit = document.getElementById('update-nit').value;
-  var nuevoNombre = document.getElementById('update-nombre').value;
-  var nuevoMail = document.getElementById('update-mail').value;
-  var nuevoPhone = document.getElementById('update-phone').value;
-  var nuevaDireccion = document.getElementById('update-direccion').value;
+        function consultarDatos() {
+            var fileInput = document.getElementById('formFile');
+            var file = fileInput.files[0];
 
-        console.log('Updating row:', clienteId);
-        console.log('New values:', nuevoId, ,nuevoNit,nuevoNombre, nuevoMail, nuevoPhone, nuevaDireccion);
+            if (file) {
+                var reader = new FileReader();
 
-        var row = document.getElementById(clienteId);
-        row.cells[0].innerText = nuevoId;
-        row.cells[1].innerText = nuevoNit;
-        row.cells[2].innerText = nuevoNombre;
-        row.cells[3].innerText = nuevoMail;
-        row.cells[4].innerText = nuevoPhone;
-        row.cells[5].innerText = nuevaDireccion;
+                reader.onload = function (e) {
+                    var xmlString = e.target.result;
+                    procesarXML(xmlString);
+                };
 
-        var updateSection = document.getElementById(clienteId + '-update-section');
-        if (updateSection) {
-            updateSection.style.display = 'none';
+                reader.readAsText(file);
+            } else {
+                alert('Por favor, selecciona un archivo XML primero.');
+            }
         }
-    }
-</script>
+        function procesarXML(xmlString) {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
 
-<script>
-      function consultarDatos() {
-          var fileInput = document.getElementById('formFile');
-          var file = fileInput.files[0];
+            // Limpia la tabla antes de agregar nuevas filas
+            clearTable();
 
-          if (file) {
-              var reader = new FileReader();
+            // Obtén la lista de nodos 'cliente'
+            var clientes = xmlDoc.getElementsByTagName('cliente');
 
-              reader.onload = function (e) {
-                  var xmlString = e.target.result;
-                  procesarXML(xmlString);
-              };
+            // Recorre la lista de clientes y agrega filas a la tabla
+            for (var i = 0; i < clientes.length; i++) {
+                var cliente = clientes[i];
+                var nit = cliente.getElementsByTagName('nit')[0].textContent;
+                var nombre = cliente.getElementsByTagName('nombre')[0].textContent;
+                var direccion = cliente.getElementsByTagName('direccion')[0].textContent;
 
-              reader.readAsText(file);
+                // Añade una fila a la tabla con los datos obtenidos
+                addRowToTable(nombre, nit, direccion, i);
+            }
+
+            // Mensaje de confirmación
+            alert('Datos del XML consultados exitosamente');
+        }
+
+        // Función para limpiar la tabla
+        function clearTable() {
+            var table = document.getElementById('clientes-table');
+            var tbody = table.getElementsByTagName('tbody')[0];
+            tbody.innerHTML = ''; // Elimina el contenido del cuerpo de la tabla
+        }
+
+        // Función para agregar una fila a la tabla con un identificador único basado en el índice
+        function addRowToTable(nombre, nit, direccion, index) {
+            // Añade una fila a la tabla con los datos obtenidos
+            var table = document.getElementById('clientes-table');
+            var tbody = table.getElementsByTagName('tbody')[0];
+            var newRow = tbody.insertRow(tbody.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            // Asigna un identificador único a la nueva fila basado en el índice
+            newRow.id = 'cliente-' + index;
+
+            // Agrega los valores a las celdas
+            cell1.innerText = nombre;
+            cell2.innerText = nit;
+            cell3.innerText = direccion;
+
+            // Agrega botones de editar y eliminar a la nueva fila
+            cell4.innerHTML = '<button onclick="showUpdateForm(\'' + newRow.id + '\')">Editar</button>' +
+                '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
+        }
+
+    </script>
+  
+  <script>
+      function deleteRow(clienteId) {
+          // Encuentra la fila por su identificador único y elimínala
+          var row = document.getElementById(clienteId);
+          if (row) {
+              console.log('Eliminando fila:', clienteId);
+              row.parentNode.removeChild(row);
           } else {
-              alert('Por favor, selecciona un archivo XML primero.');
+              console.error('No se encontró la fila con el identificador:', clienteId);
           }
       }
-      function procesarXML(xmlString) {
-          var parser = new DOMParser();
-          var xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-
-         
-          clearTable();
-
-          var clientes = xmlDoc.getElementsByTagName('cliente');
-          for (var i = 0; i < clientes.length; i++) {
-              var cliente = clientes[i];
-              var id = cliente.getElementsByTagName('id')[0].textContent;
-              var nit = cliente.getElementsByTagName('nit')[0].textContent;
-              var nombre = cliente.getElementsByTagName('nombre')[0].textContent;                
-              var mail = cliente.getElementsByTagName('mail')[0].textContent;
-              var phone = cliente.getElementsByTagName('phone')[0].textContent;
-              var direccion = cliente.getElementsByTagName('direccion')[0].textContent;
-
-              addRowToTable(id, nit, nombre, mail, phone, direccion, i);
-          }
-          alert('Datos del XML consultados exitosamente');
-      }
-
-      function clearTable() {
-          var table = document.getElementById('clientes-table');
-          var tbody = table.getElementsByTagName('tbody')[0];
-          tbody.innerHTML = ''; 
-      }
-
-      function addRowToTable(id, nit, nombre, mail, phone, direccion, index) {
-          var table = document.getElementById('clientes-table');
-          var tbody = table.getElementsByTagName('tbody')[0];
-          var newRow = tbody.insertRow(tbody.rows.length);
-          var cell1 = newRow.insertCell(0);
-          var cell2 = newRow.insertCell(1);
-          var cell3 = newRow.insertCell(2);
-          var cell4 = newRow.insertCell(3);
-          var cell5 = newRow.insertCell(4);
-          var cell6 = newRow.insertCell(5);
-          var cell7 = newRow.insertCell(6);
-      
-          newRow.id = 'cliente-' + index;
-      
-          cell1.innerText = id;
-          cell2.innerText = nit;
-          cell3.innerText = nombre;
-          cell4.innerText = mail;
-          cell5.innerText = phone;
-          cell6.innerText = direccion;
-      
-          cell7.innerHTML = '<button onclick="showUpdateForm(' + index + ')">Editar</button>' +
-          '<button onclick="deleteRow(\'' + newRow.id + '\')">Eliminar</button>';
-      }
-
   </script>
+  
+  <script>
+        function showClientes() {
+            var clientesSection = document.getElementById("clientes-section");
+            var fileUploadSection = document.getElementById("file-upload-section");
+            var additionalButtonsSection = document.getElementById("additional-buttons-section");
 
-<script>
-    function deleteRow(clienteId) {
-        var row = document.getElementById(clienteId);
-        if (row) {
-            console.log('Eliminando fila:', clienteId);
-            row.parentNode.removeChild(row);
-        } else {
-            console.error('No se encontró la fila con el identificador:', clienteId);
+            if (clientesSection.style.display === "none" || clientesSection.style.display === "") {
+                clientesSection.style.display = "block";
+                fileUploadSection.style.display = "block";
+                additionalButtonsSection.style.display = "block";
+            } else {
+                clientesSection.style.display = "none";
+                fileUploadSection.style.display = "none";
+                additionalButtonsSection.style.display = "none";
+            }
         }
-    }
-</script>
+  </script> 
 
-<script>
-      function showClientes() {
-          var clientesSection = document.getElementById("clientes-section");
-          var fileUploadSection = document.getElementById("file-upload-section");
-          var additionalButtonsSection = document.getElementById("additional-buttons-section");
+    <script>
+            // Función para filtrar filas en la tabla
+        function filtrarFilas(terminoBusqueda) {
+        var table = document.getElementById('clientes-table');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var filas = tbody.getElementsByTagName('tr');
 
-          if (clientesSection.style.display === "none" || clientesSection.style.display === "") {
-              clientesSection.style.display = "block";
-              fileUploadSection.style.display = "block";
-              additionalButtonsSection.style.display = "block";
-          } else {
-              clientesSection.style.display = "none";
-              fileUploadSection.style.display = "none";
-              additionalButtonsSection.style.display = "none";
-          }
-      }
-</script> 
+        for (var i = 0; i < filas.length; i++) {
+        var fila = filas[i];
+        var celdas = fila.getElementsByTagName('td');
+        var contieneTermino = false;
+
+        for (var j = 0; j < celdas.length; j++) {
+            var textoCelda = celdas[j].textContent || celdas[j].innerText;
+            if (textoCelda.toLowerCase().includes(terminoBusqueda.toLowerCase())) {
+            contieneTermino = true;
+            break;
+            }
+        }
+
+        fila.style.display = contieneTermino ? '' : 'none';
+        }
+        }
+
+        // Agrega un event listener al formulario de búsqueda
+        document.getElementById('busqueda-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Evita que el formulario se envíe
+        var terminoBusqueda = document.getElementById('busqueda').value.trim();
+        filtrarFilas(terminoBusqueda);
+        });
+
+    </script>
+  
 
   <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
